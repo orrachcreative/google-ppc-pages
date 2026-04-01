@@ -2064,7 +2064,36 @@
   }
 
   window.updateCityFilter = updateCityFilter;
-  window.initGooglePlaces = initCityAutocomplete;
+
+  /* ── Address autocomplete (full street address, US only) ── */
+  function initAddressAutocomplete(inputId) {
+    if (!window.google || !window.google.maps || !window.google.maps.places) return;
+    const input = document.getElementById(inputId);
+    if (!input || input._acInit) return;
+    input._acInit = true;
+
+    const ac = new google.maps.places.Autocomplete(input, {
+      types: ['address'],
+      componentRestrictions: { country: 'us' },
+      fields: ['formatted_address', 'address_components']
+    });
+
+    ac.addListener('place_changed', () => {
+      const place = ac.getPlace();
+      if (place && place.formatted_address) input.value = place.formatted_address;
+      input.classList.remove('input-error');
+      const grp = input.closest('.form-group');
+      if (grp) grp.querySelectorAll('.field-error-msg').forEach(e => e.remove());
+    });
+  }
+
+  function initGooglePlaces() {
+    initCityAutocomplete();
+    initAddressAutocomplete('pOwnerAddr');
+    initAddressAutocomplete('rAddress');
+  }
+
+  window.initGooglePlaces = initGooglePlaces;
 </script>
 <script>
   /* ── Load Google Places only when a real API key is present ── */
