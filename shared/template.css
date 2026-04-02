@@ -428,15 +428,17 @@
 
     /* ─── PHONE SCREENSHOTS ───────────────────────────── */
     .phone-strip { display: flex; gap: 16px; justify-content: center; margin-top: 52px; flex-wrap: wrap; }
+    .phone-grid { align-items: start; }
     .phone-card {
       background: var(--white); border: 1px solid var(--border);
       border-radius: 20px; overflow: hidden;
       box-shadow: 0 8px 32px rgba(0,0,0,.08);
       width: 180px; flex-shrink: 0;
       transition: transform .3s;
+      height: fit-content;
     }
     .phone-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(46,163,242,.15); }
-    .phone-card img { width: 100%; display: block; }
+    .phone-card img { width: 100%; display: block; vertical-align: bottom; }
 
     /* ─── IDENTITY INTEL (gradient bg) ───────────────── */
     .intel-bg { background: linear-gradient(135deg, #0d1b3e 0%, #0e3460 100%); }
