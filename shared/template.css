@@ -1,9 +1,9 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blue:       #2ea3f2;
-      --blue-dark:  #1a8cd8;
-      --blue-light: #e8f5fe;
+      --blue:       #0063e9;
+      --blue-dark:  #0052c2;
+      --blue-light: #e6effd;
       --dark:       #1a1a2e;
       --heading:    #333;
       --body:       #555;
