@@ -1,0 +1,394 @@
+/*
+ * ═══════════════════════════════════════════════════════════
+ *  BRAND: Keller Williams
+ *
+ *  Assets folder: shared/brands/keller_williams/
+ *    keller-williams-realty-logo2.svg  ← primary logo
+ *    KellerWilliams_StyleGuide_1805.pdf
+ *
+ *  Usage in HTML template:
+ *    <img src="../shared/brands/keller_williams/keller-williams-realty-logo2.svg" />
+ *
+ *  Usage in CSS (relative to this file):
+ *    background-image: url('./keller_williams/keller-williams-realty-logo2.svg');
+ *
+ *  Source: kwworldwide.com/en-US + KellerWilliams_QuickReferenceGuide.pdf
+ *
+ *  KW Red     : #CE011F  (Pantone 200 C — live site value)
+ *  Near-black : #1A1A1A  (headings, footer)
+ *  Dark gray  : #2D2D2D  (body text)
+ *  Mid gray   : #717171  (muted/subtext)
+ *  Light gray : #F2F2F2  (section backgrounds)
+ *  Border     : #E0E0E0
+ *  Font       : Helvetica Neue LT Std → Inter (closest web equivalent)
+ *               Headings: heavy weight, tight tracking
+ *               Body: regular weight, generous line-height
+ * ═══════════════════════════════════════════════════════════
+ */
+
+/* ── Fonts ──────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+
+/* ── Brand tokens ────────────────────────────────────────── */
+:root {
+  --brand-primary:       #CE011F;
+  --brand-primary-dark:  #a50019;
+  --brand-primary-light: #f5cdd1;
+  --brand-heading:       #1A1A1A;
+  --brand-body:          #2D2D2D;
+  --brand-muted:         #717171;
+  --brand-border:        #E0E0E0;
+  --brand-bg-light:      #F2F2F2;
+  --brand-white:         #FFFFFF;
+  --brand-font:          'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --brand-heading-font:  'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --brand-hero-bg:       linear-gradient(135deg, rgba(26,26,26,0.97) 0%, rgba(26,26,26,0.93) 100%);
+  --brand-stat-bg:       #1A1A1A;
+  --brand-stat-num:      #CE011F;
+  --brand-cta-bg:        linear-gradient(135deg, #CE011F 0%, #8a0015 100%);
+  --brand-coband-bg:     #CE011F;
+  --brand-coband-text:   #FFFFFF;
+}
+
+/* ── Map brand tokens → template variables ───────────────── */
+:root {
+  --blue:     var(--brand-primary);
+  --heading:  var(--brand-heading);
+  --body:     var(--brand-body);
+  --muted:    var(--brand-muted);
+  --border:   var(--brand-border);
+  --bg-light: var(--brand-bg-light);
+}
+
+/* ── Global typography ───────────────────────────────────── */
+body,
+input, select, button, textarea {
+  font-family: var(--brand-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title, .team-name, .listing-address {
+  font-family: var(--brand-heading-font);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--brand-heading);
+}
+
+/* KW headlines are sharp and heavy, like the site's big section titles */
+.section-title {
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.1;
+}
+
+/* ── Nav ─────────────────────────────────────────────────── */
+nav {
+  border-bottom: 3px solid var(--brand-primary);
+  background: var(--brand-white);
+}
+
+.btn.btn-primary {
+  background: var(--brand-primary) !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase !important;
+  font-size: 13px !important;
+}
+.btn.btn-primary:hover {
+  background: var(--brand-primary-dark) !important;
+}
+
+/* ── Nav logo — kill default browser link blue ───────────── */
+a.nav-logo,
+a.nav-logo:visited,
+a.nav-logo:hover {
+  color: var(--brand-heading) !important;
+}
+
+/* ── Hero ────────────────────────────────────────────────── */
+/* City name accent — KW red on dark background */
+.hero em,
+.hero h1 em {
+  color: var(--brand-primary) !important;
+  font-style: normal;
+}
+
+/* Hero badge pill — override any inherited blue */
+.hero-badge,
+.hero-badge * {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.12) !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+/* Hero perks checkmarks */
+.hero-perk {
+  color: rgba(255,255,255,0.9) !important;
+}
+.hero-perk svg {
+  stroke: var(--brand-primary) !important;
+}
+
+/* Hero H1 — very bold, tight, like KW's site headlines */
+.hero h1 {
+  font-weight: 900 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.03em !important;
+}
+
+/* ── Full-width form buttons (timeline, financing steps) ─── */
+.full-btn {
+  background: var(--brand-primary) !important;
+  border-color: var(--brand-primary) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  border-radius: 4px !important;
+  text-transform: uppercase !important;
+  font-size: 13px !important;
+}
+.full-btn:hover {
+  background: var(--brand-primary-dark) !important;
+  border-color: var(--brand-primary-dark) !important;
+}
+
+/* ── Input focus rings ───────────────────────────────────── */
+.form-group input:focus,
+.form-group select:focus,
+.phone-input:focus {
+  border-color: var(--brand-primary) !important;
+  box-shadow: 0 0 0 3px rgba(206,1,31,0.15) !important;
+  outline: none !important;
+}
+
+/* ── Back button ─────────────────────────────────────────── */
+.back-btn {
+  color: var(--brand-muted) !important;
+}
+.back-btn:hover {
+  color: var(--brand-primary) !important;
+}
+
+/* ── Option card icons (default blue → KW red) ───────────── */
+.option-card svg {
+  stroke: var(--brand-primary) !important;
+  color: var(--brand-primary) !important;
+}
+.option-card span {
+  color: var(--brand-heading) !important;
+}
+
+/* ── Lead form card ──────────────────────────────────────── */
+.leadforms-form-wrap {
+  box-shadow: rgba(206,1,31,0.3) 0px 0px 0px 3px, rgba(0,0,0,0.35) 0px 32px 80px 0px !important;
+}
+
+.leadforms-form-header {
+  background: var(--brand-primary) !important;
+  border-radius: 12px 12px 0 0;
+}
+
+.leadforms-form-header h3 {
+  font-weight: 800 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.form-prog-fill {
+  background: var(--brand-primary) !important;
+}
+
+.option-card:hover,
+.option-card.selected {
+  border-color: var(--brand-primary) !important;
+  color: var(--brand-primary) !important;
+}
+.option-card:hover svg,
+.option-card.selected svg {
+  stroke: var(--brand-primary) !important;
+}
+
+.btn-next-full {
+  background: var(--brand-primary) !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  font-size: 14px !important;
+}
+.btn-next-full:hover {
+  background: var(--brand-primary-dark) !important;
+}
+
+/* ── Areas bar ───────────────────────────────────────────── */
+.partner-bar {
+  border-top: 3px solid var(--brand-primary);
+  border-bottom: 1px solid var(--brand-border);
+}
+
+/* ── Section labels ──────────────────────────────────────── */
+.section-label {
+  color: var(--brand-primary) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+}
+
+/* ── Listing cards ───────────────────────────────────────── */
+.listing-address {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ── Carousel ────────────────────────────────────────────── */
+.carousel-dot.active {
+  background: var(--brand-primary) !important;
+}
+.carousel-arrow:hover {
+  background: var(--brand-primary) !important;
+  border-color: var(--brand-primary) !important;
+  color: #fff !important;
+}
+
+/* ── Buttons (listing CTAs) ──────────────────────────────── */
+.btn-dark {
+  background: var(--brand-primary) !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  font-size: 13px !important;
+}
+.btn-dark:hover {
+  background: var(--brand-primary-dark) !important;
+}
+
+/* ── Testimonials ────────────────────────────────────────── */
+.testimonials-bg {
+  background: var(--brand-bg-light) !important;
+}
+.testimonial-quote {
+  color: var(--brand-primary) !important;
+}
+
+/* ── Stats bar ───────────────────────────────────────────── */
+.stats-bar {
+  background: var(--brand-stat-bg) !important;
+}
+.stat-num {
+  color: var(--brand-stat-num) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
+}
+.stat-label {
+  color: rgba(255,255,255,0.65) !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* ── Team contact links (blue → KW red) ─────────────────── */
+.team-contact-link,
+.team-contact-link:visited {
+  background: rgba(206,1,31,0.08) !important;
+  color: var(--brand-primary) !important;
+  border-color: rgba(206,1,31,0.25) !important;
+}
+.team-contact-link:hover {
+  background: var(--brand-primary) !important;
+  color: #ffffff !important;
+  border-color: var(--brand-primary) !important;
+}
+.team-contact-link:hover svg {
+  stroke: #ffffff !important;
+}
+.team-contact-link svg {
+  stroke: var(--brand-primary) !important;
+}
+
+/* ── Team connector icon (blue → KW dark) ────────────────── */
+.team-connector-icon {
+  color: var(--brand-heading) !important;
+  border-color: var(--brand-border) !important;
+  background: var(--brand-bg-light) !important;
+}
+.team-connector-icon svg {
+  stroke: var(--brand-muted) !important;
+}
+.team-connector-line {
+  background: var(--brand-border) !important;
+}
+
+/* ── Team photo border ───────────────────────────────────── */
+.team-photo {
+  border-color: var(--brand-heading) !important;
+}
+.team-photo-wrap {
+  border-color: var(--brand-heading) !important;
+}
+
+/* ── Team badges ─────────────────────────────────────────── */
+.team-badge--lo {
+  background: rgba(206,1,31,0.08) !important;
+  color: var(--brand-primary) !important;
+  border: 1px solid rgba(206,1,31,0.2) !important;
+}
+.team-badge--agent {
+  background: rgba(206,1,31,0.08) !important;
+  color: var(--brand-primary) !important;
+  border: 1px solid rgba(206,1,31,0.2) !important;
+}
+
+/* ── CTA banner ──────────────────────────────────────────── */
+.cta-banner {
+  background: var(--brand-cta-bg) !important;
+}
+.cta-banner h2 {
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
+}
+.btn-white {
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  font-size: 13px !important;
+  color: var(--brand-primary) !important;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+footer {
+  background: #1A1A1A !important;
+}
+.footer-col h4 {
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: rgba(255,255,255,0.45) !important;
+}
+
+/* ── Co-brand bar ────────────────────────────────────────── */
+.brand-coband {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--brand-coband-bg);
+  color: var(--brand-coband-text);
+  font-family: var(--brand-font);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+}
+.brand-coband .brand-coband-divider { opacity: 0.4; }
+.brand-coband .brand-coband-name    { font-weight: 800; }
+.brand-coband .brand-coband-tagline { font-weight: 400; opacity: 0.8; letter-spacing: 0.05em; }

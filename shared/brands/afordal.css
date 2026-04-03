@@ -1,0 +1,61 @@
+/*
+ * ═══════════════════════════════════════════════════════════
+ *  BRAND: Afordal (Default)
+ *  Primary:   #0063E9  (Afordal Blue)
+ *  Heading:   #07448C
+ *  Font:      Nunito Sans + Poppins
+ * ═══════════════════════════════════════════════════════════
+ */
+
+/* ── Fonts ─────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* ── Brand tokens ───────────────────────────────────────── */
+:root {
+  --brand-primary:      #0063E9;
+  --brand-primary-dark: #0052cc;
+  --brand-heading:      #07448C;
+  --brand-body:         #374151;
+  --brand-muted:        #6B7280;
+  --brand-border:       #E5E7EB;
+  --brand-bg-light:     #F4F6FA;
+  --brand-font:         'Nunito Sans', sans-serif;
+  --brand-heading-font: 'Poppins', sans-serif;
+  --brand-hero-bg:      linear-gradient(135deg, rgba(7,68,140,0.93) 0%, rgba(4,30,75,0.95) 100%);
+  --brand-accent:       #0063E9;
+  --brand-stat-bg:      #07448C;
+  --brand-stat-num:     #63b3ed;
+  --brand-cta-bg:       linear-gradient(135deg, #0063E9 0%, #07448C 100%);
+}
+
+/* ── Map brand tokens → template variables ──────────────── */
+:root {
+  --blue:    var(--brand-primary);
+  --heading: var(--brand-heading);
+  --body:    var(--brand-body);
+  --muted:   var(--brand-muted);
+  --border:  var(--brand-border);
+  --bg-light:var(--brand-bg-light);
+}
+
+body {
+  font-family: var(--brand-font);
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title, .team-name, .listing-address, .stat-num {
+  font-family: var(--brand-heading-font);
+}
+
+/* ── Hero background ────────────────────────────────────── */
+/* (Set per campaign page — hero landmark image stays in the HTML style block) */
+
+/* ── Stats bar ──────────────────────────────────────────── */
+.stats-bar { background: var(--brand-stat-bg) !important; }
+.stat-num  { color: var(--brand-stat-num) !important; }
+
+/* ── CTA banner ─────────────────────────────────────────── */
+.cta-banner { background: var(--brand-cta-bg) !important; }
+
+/* ── Co-brand bar (hidden for default Afordal brand) ─────── */
+.brand-coband { display: none; }

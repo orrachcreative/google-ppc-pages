@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{page_title}} | {{brand_name}}</title>
+
+  <!--
+  ┌─────────────────────────────────────────────────────────────┐
+  │  BRAND STYLESHEET                                           │
+  │  Swap this one line to change the entire brand experience.  │
+  │  Available:                                                 │
+  │    ../shared/brands/afordal.css          (default)         │
+  │    ../shared/brands/keller-williams.css                     │
+  │    ../shared/brands/remax.css            (coming soon)      │
+  │    ../shared/brands/exp-realty.css       (coming soon)      │
+  └─────────────────────────────────────────────────────────────┘
+  -->
+  <link rel="stylesheet" href="../shared/brands/coldwell-banker.css" id="brand-stylesheet" />
+  <script>
+    /* ── Brand switcher (?style=keller-williams | coldwell-banker | afordal) ── */
+    (function () {
+      var allowed = ['keller-williams', 'coldwell-banker', 'afordal'];
+      var param   = new URLSearchParams(window.location.search).get('style');
+      if (param && allowed.includes(param)) {
+        document.getElementById('brand-stylesheet').href =
+          '../shared/brands/' + param + '.css';
+      }
+    })();
+  </script>
+
+  <!-- Base structural styles (never changes) -->
+  <link rel="stylesheet" href="../shared/template.css" />
+
+  <style>
+    /* ─────────────────────────────────────────────────────────
+       LAYOUT OVERRIDES
+       These are structural — they belong here, not in brand CSS.
+    ───────────────────────────────────────────────────────── */
+
+    /* 2-col hero */
+    .hero {
+      min-height: auto;
+      padding: 80px 40px;
+      background-image:
+        var(--brand-hero-bg, linear-gradient(135deg, rgba(7,68,140,0.88) 0%, rgba(4,30,75,0.92) 100%)),
+        url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center center;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 72px;
+      align-items: center;
+      text-align: left;
+    }
+    .hero-content,
+    .hero-content.collapsed {
+      max-height: none !important;
+      opacity: 1 !important;
+      margin-bottom: 0 !important;
+      transition: none !important;
+    }
+    .hero-badge  { justify-content: flex-start; }
+    .hero-perks  { justify-content: flex-start; }
+    .hero h1     { font-size: clamp(28px, 3.4vw, 48px); }
+    #eligibility { display: flex; flex-direction: column; }
+
+    @media (max-width: 960px) {
+      .hero { padding: 60px 32px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .hero-badge, .hero-perks { justify-content: center; }
+      #eligibility { align-items: center; margin: 0 auto; }
+      #eligibility .leadforms-form-wrap { width: 100%; }
+      #eligibility > div[style] { justify-content: center; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 48px 20px; }
+    }
+
+    /* Listings Carousel */
+    .listings-carousel-outer { position: relative; display: flex; align-items: center; gap: 16px; margin-top: 40px; }
+    .listings-track-outer { overflow: hidden; flex: 1; padding: 10px; }
+    .listings-track { display: flex; gap: 24px; transition: transform .42s cubic-bezier(.4,0,.2,1); }
+    .listing-card {
+      flex: 0 0 calc((100% - 48px) / 3);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .listing-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,.11); }
+    .listing-img-wrap { position: relative; height: 220px; overflow: hidden; background: var(--bg-light); }
+    .listing-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .listing-card:hover .listing-img-wrap img { transform: scale(1.03); }
+    .listing-badge {
+      position: absolute; top: 14px; left: 14px;
+      background: #22c55e; color: #fff;
+      font-size: 12px; font-weight: 700;
+      padding: 5px 13px; border-radius: 20px; letter-spacing: .3px;
+    }
+    .listing-info { padding: 18px 20px 20px; }
+    .listing-address { font-size: 17px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    .listing-city { font-size: 13px; color: var(--muted); font-weight: 500; margin-bottom: 10px; }
+    .listing-meta { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--body); font-weight: 500; }
+    .listing-sep { color: var(--border); }
+
+    .carousel-arrow {
+      flex-shrink: 0; width: 44px; height: 44px;
+      border-radius: 50%; border: 1px solid var(--border);
+      background: var(--white); color: var(--heading);
+      font-size: 22px; line-height: 1; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .carousel-arrow:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+    .carousel-dot { width: 10px; height: 10px; border-radius: 5px; background: var(--border); border: none; cursor: pointer; padding: 0; transition: all .25s; }
+    .carousel-dot.active { background: var(--heading); width: 26px; }
+    .listings-cta { text-align: center; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .listings-cta p { color: var(--body); margin-bottom: 16px; font-size: 16px; }
+    .btn-dark { display: inline-flex; align-items: center; gap: 8px; background: var(--blue); color: #fff; padding: 14px 28px; border-radius: 10px; font-size: 16px; font-weight: 700; text-decoration: none; transition: background .2s, transform .2s; }
+    .btn-dark:hover { background: var(--brand-primary-dark, #0052cc); transform: translateY(-2px); }
+
+    @media (max-width: 960px) { .listing-card { flex: 0 0 calc((100% - 24px) / 2); } }
+    @media (max-width: 600px) { .listing-card { flex: 0 0 100%; } .carousel-arrow { display: none; } }
+
+    /* More Listings Grid */
+    .more-listings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+    .more-listings-grid .listing-card { flex: none; }
+    @media (max-width: 960px) { .more-listings-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .more-listings-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="../shared/brands/coldwell_banker/90110d05-c162-4afc-9bc6-20ff283b6860.svg" alt="Coldwell Banker" style="height:38px;width:auto;display:block;" />
+  </a>
+  <div class="nav-cta">
+    <a href="tel:{{phone_link}}" class="nav-phone">📞 {{phone_display}}</a>
+    <a href="#eligibility" class="btn btn-primary">See Available Homes</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="tel:{{phone_link}}" class="nav-phone">📞 {{phone_display}}</a>
+  <a href="#eligibility" class="btn btn-primary" id="mobileEligibilityBtn">See Available Homes</a>
+</div>
+
+<!-- ─── HERO ───────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content" id="heroContent">
+      <div class="hero-badge">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        {{hero_badge}}
+      </div>
+      <h1>Find Homes That Fit Your Monthly Budget in <em>{{city_state}}</em></h1>
+      <div class="hero-perks">
+        <div class="hero-perk">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+          Search by Monthly Payment
+        </div>
+        <div class="hero-perk">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+          Multiple Financing Options
+        </div>
+        <div class="hero-perk">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+          New Construction &amp; Resale
+        </div>
+        <div class="hero-perk">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+          No Cost to Search
+        </div>
+      </div>
+    </div>
+
+    <!-- LEAD FORM -->
+    <div id="eligibility">
+      <div class="leadforms-form-wrap">
+        <div class="leadforms-form-header">
+          <h3>{{form_headline}}</h3>
+          <p>Answer a few questions to get matched to available homes</p>
+        </div>
+        <div class="leadforms-form-body">
+          <div class="form-prog">
+            <div class="form-prog-bar"><div class="form-prog-fill" id="progFill"></div></div>
+          </div>
+
+          <!-- Step 1: Monthly payment target -->
+          <div class="form-step active" id="step1">
+            <p class="form-step-title">What's your target monthly payment?</p>
+            <div class="option-grid">
+              <div class="option-card" onclick="startSearch('under1500')">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span>Under $1,500/mo</span><small>Affordable range</small>
+              </div>
+              <div class="option-card" onclick="startSearch('1500to2000')">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span>$1,500–$2,000/mo</span><small>Mid range</small>
+              </div>
+              <div class="option-card" onclick="startSearch('2000to2500')">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span>$2,000–$2,500/mo</span><small>Upper mid</small>
+              </div>
+              <div class="option-card" onclick="startSearch('2500plus')">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span>$2,500+/mo</span><small>Premium range</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Timeline -->
+          <div class="form-step" id="s2">
+            <p class="form-step-title">When are you looking to move?</p>
+            <div class="full-btn-list">
+              <button class="full-btn" onclick="goFlow('s',3)">As soon as possible</button>
+              <button class="full-btn" onclick="goFlow('s',3)">Within 3 months</button>
+              <button class="full-btn" onclick="goFlow('s',3)">3–6 months out</button>
+              <button class="full-btn" onclick="goFlow('s',3)">Just exploring options</button>
+            </div>
+            <button class="back-btn" onclick="goToStep(1)">← Back</button>
+          </div>
+
+          <!-- Step 3: Financing -->
+          <div class="form-step" id="s3">
+            <p class="form-step-title">Have you been pre-approved?</p>
+            <div class="full-btn-list">
+              <button class="full-btn" onclick="goFlow('s',4)">Yes — already pre-approved</button>
+              <button class="full-btn" onclick="goFlow('s',4)">Working on it</button>
+              <button class="full-btn" onclick="goFlow('s',4)">No — I need help with financing</button>
+            </div>
+            <button class="back-btn" onclick="goFlow('s',2)">← Back</button>
+          </div>
+
+          <!-- Step 4: Name -->
+          <div class="form-step" id="s4">
+            <p class="form-step-title">What's your name?</p>
+            <div class="form-group"><input type="text" placeholder="First name" id="sFirstName" /></div>
+            <div class="form-group"><input type="text" placeholder="Last name" id="sLastName" /></div>
+            <button class="btn-next-full" onclick="validateAndGo(()=>goFlow('s',5))">Next</button>
+            <button class="back-btn" onclick="goFlow('s',3)">← Back</button>
+          </div>
+
+          <!-- Step 5: Email -->
+          <div class="form-step" id="s5">
+            <p class="form-step-title">Where should we send your matches?</p>
+            <div class="form-group"><input type="email" placeholder="Email address" id="sEmail" /></div>
+            <button class="btn-next-full" onclick="validateAndGo(()=>goFlow('s',6))">Next</button>
+            <button class="back-btn" onclick="goFlow('s',4)">← Back</button>
+          </div>
+
+          <!-- Step 6: Phone -->
+          <div class="form-step" id="s6">
+            <p class="form-step-title">Best number to reach you?</p>
+            <div class="form-group phone-input-wrap">
+              <div class="phone-country-wrap"><select class="phone-country" id="sCountry"></select></div>
+              <input type="tel" placeholder="(000) 000-0000" id="sPhone" class="phone-input" />
+            </div>
+            <button class="btn-next-full" onclick="validateAndGo(()=>showThankYou())">Show Me My Matches!</button>
+            <button class="back-btn" onclick="goFlow('s',5)">← Back</button>
+            <p class="tcpa-disclaimer">By submitting, you agree to be contacted by {{brand_name}} and its partners by phone, email, or text regarding available homes and financing options. Message and data rates may apply. You may opt out at any time.</p>
+          </div>
+
+          <!-- Thank You -->
+          <div class="form-step" id="thankYou">
+            <div class="ty-redirect-bar-wrap">
+              <div class="ty-redirect-bar-fill" id="tyBarFill"></div>
+            </div>
+            <p class="ty-redirect-text">
+              {{contact_first}} will be in touch shortly with your matches!<br>
+              Check your email for available homes.
+            </p>
+            <a id="tyRedirectLink" href="{{redirect_url}}" class="ty-redirect-link">Click here to browse now</a>
+          </div>
+
+        </div>
+      </div>
+      <!-- Submission counter -->
+      <div style="text-align:center;margin-top:24px;display:flex;align-items:center;justify-content:center;gap:7px;">
+        <svg width="15" height="15" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.75);">
+          <span id="submissionCounter">{{submission_count}}</span> Buyers Matched to {{city}} Homes!
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AREAS SERVED ────────────────────────────────────────── -->
+<div class="partner-bar">
+  <div class="partner-bar-inner">
+    <p class="partner-bar-label">{{areas_label}}</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="font-size:18px;font-weight:700;color:var(--heading);">{{area_1_name}}</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">{{area_1_sub}}</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:18px;font-weight:700;color:var(--heading);">{{area_2_name}}</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">{{area_2_sub}}</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:18px;font-weight:700;color:var(--heading);">{{area_3_name}}</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">{{area_3_sub}}</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:18px;font-weight:700;color:var(--heading);">{{area_4_name}}</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">{{area_4_sub}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── LISTINGS CAROUSEL ──────────────────────────────────── -->
+<div style="background:var(--white)">
+  <div class="section">
+    <div class="text-center">
+      <h2 class="section-title">{{listings_headline}}</h2>
+      <p class="section-sub centered">{{listings_subtitle}}</p>
+    </div>
+    <div class="listings-carousel-outer">
+      <button class="carousel-arrow" aria-label="Previous listings" onclick="carouselPrev()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="listings-track-outer">
+        <div class="listings-track" id="listingsTrack">
+
+          <div class="listing-card">
+            <div class="listing-img-wrap"><img src="{{listing_1_photo}}" alt="{{listing_1_address}}" /><div class="listing-badge">{{listing_1_status}}</div></div>
+            <div class="listing-info">
+              <div class="listing-address">{{listing_1_address}}</div>
+              <div class="listing-city">{{listing_1_city}}</div>
+              <div class="listing-meta"><span>{{listing_1_sqft}}</span><span class="listing-sep">|</span><span>{{listing_1_type}}</span></div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap"><img src="{{listing_2_photo}}" alt="{{listing_2_address}}" /><div class="listing-badge">{{listing_2_status}}</div></div>
+            <div class="listing-info">
+              <div class="listing-address">{{listing_2_address}}</div>
+              <div class="listing-city">{{listing_2_city}}</div>
+              <div class="listing-meta"><span>{{listing_2_sqft}}</span><span class="listing-sep">|</span><span>{{listing_2_type}}</span></div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap"><img src="{{listing_3_photo}}" alt="{{listing_3_address}}" /><div class="listing-badge">{{listing_3_status}}</div></div>
+            <div class="listing-info">
+              <div class="listing-address">{{listing_3_address}}</div>
+              <div class="listing-city">{{listing_3_city}}</div>
+              <div class="listing-meta"><span>{{listing_3_sqft}}</span><span class="listing-sep">|</span><span>{{listing_3_type}}</span></div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap"><img src="{{listing_4_photo}}" alt="{{listing_4_address}}" /><div class="listing-badge">{{listing_4_status}}</div></div>
+            <div class="listing-info">
+              <div class="listing-address">{{listing_4_address}}</div>
+              <div class="listing-city">{{listing_4_city}}</div>
+              <div class="listing-meta"><span>{{listing_4_sqft}}</span><span class="listing-sep">|</span><span>{{listing_4_type}}</span></div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap"><img src="{{listing_5_photo}}" alt="{{listing_5_address}}" /><div class="listing-badge">{{listing_5_status}}</div></div>
+            <div class="listing-info">
+              <div class="listing-address">{{listing_5_address}}</div>
+              <div class="listing-city">{{listing_5_city}}</div>
+              <div class="listing-meta"><span>{{listing_5_sqft}}</span><span class="listing-sep">|</span><span>{{listing_5_type}}</span></div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap"><img src="{{listing_6_photo}}" alt="{{listing_6_address}}" /><div class="listing-badge">{{listing_6_status}}</div></div>
+            <div class="listing-info">
+              <div class="listing-address">{{listing_6_address}}</div>
+              <div class="listing-city">{{listing_6_city}}</div>
+              <div class="listing-meta"><span>{{listing_6_sqft}}</span><span class="listing-sep">|</span><span>{{listing_6_type}}</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="carousel-arrow" aria-label="Next listings" onclick="carouselNext()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+    <div class="listings-cta">
+      <p>{{listings_cta_text}}</p>
+      <a href="#eligibility" class="btn-dark">{{listings_cta_btn}} <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TESTIMONIALS ───────────────────────────────────────── -->
+<div class="testimonials-bg">
+  <div class="section">
+    <div class="text-center">
+      <div class="section-label">What Our Clients Say</div>
+      <h2 class="section-title">Real Stories from {{city}} Home Buyers</h2>
+      <p class="section-sub centered">Here's what real buyers have to say about finding a home through {{brand_name}}.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">{{testimonial_1_text}}</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="{{testimonial_1_photo}}" alt="{{testimonial_1_name}}" />
+          <div><div class="testimonial-name">{{testimonial_1_name}}</div><div class="testimonial-role">{{testimonial_1_role}}</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">{{testimonial_2_text}}</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="{{testimonial_2_photo}}" alt="{{testimonial_2_name}}" />
+          <div><div class="testimonial-name">{{testimonial_2_name}}</div><div class="testimonial-role">{{testimonial_2_role}}</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">{{testimonial_3_text}}</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="{{testimonial_3_photo}}" alt="{{testimonial_3_name}}" />
+          <div><div class="testimonial-name">{{testimonial_3_name}}</div><div class="testimonial-role">{{testimonial_3_role}}</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── STATS ───────────────────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">{{stat_1_num}}</div><div class="stat-label">Starting monthly payment</div></div>
+    <div class="stat-item"><div class="stat-num">{{stat_2_num}}</div><div class="stat-label">Financing programs available</div></div>
+    <div class="stat-item"><div class="stat-num">{{stat_3_num}}</div><div class="stat-label">Active listings in {{city}}</div></div>
+    <div class="stat-item"><div class="stat-num">{{stat_4_num}}</div><div class="stat-label">Avg. days to close</div></div>
+  </div>
+</div>
+
+<!-- ─── MORE LISTINGS ──────────────────────────────────────── -->
+<div style="background:var(--white)">
+  <div class="section">
+    <div class="text-center">
+      <div class="section-label">More Options</div>
+      <h2 class="section-title">{{more_listings_headline}}</h2>
+      <p class="section-sub centered">{{more_listings_subtitle}}</p>
+    </div>
+    <div class="more-listings-grid">
+
+      <div class="listing-card">
+        <div class="listing-img-wrap"><img src="{{more_listing_1_photo}}" alt="{{more_listing_1_address}}" /><div class="listing-badge">{{more_listing_1_status}}</div></div>
+        <div class="listing-info"><div class="listing-address">{{more_listing_1_address}}</div><div class="listing-city">{{more_listing_1_city}}</div><div class="listing-meta"><span>{{more_listing_1_sqft}}</span><span class="listing-sep">|</span><span>{{more_listing_1_type}}</span></div></div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap"><img src="{{more_listing_2_photo}}" alt="{{more_listing_2_address}}" /><div class="listing-badge">{{more_listing_2_status}}</div></div>
+        <div class="listing-info"><div class="listing-address">{{more_listing_2_address}}</div><div class="listing-city">{{more_listing_2_city}}</div><div class="listing-meta"><span>{{more_listing_2_sqft}}</span><span class="listing-sep">|</span><span>{{more_listing_2_type}}</span></div></div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap"><img src="{{more_listing_3_photo}}" alt="{{more_listing_3_address}}" /><div class="listing-badge">{{more_listing_3_status}}</div></div>
+        <div class="listing-info"><div class="listing-address">{{more_listing_3_address}}</div><div class="listing-city">{{more_listing_3_city}}</div><div class="listing-meta"><span>{{more_listing_3_sqft}}</span><span class="listing-sep">|</span><span>{{more_listing_3_type}}</span></div></div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap"><img src="{{more_listing_4_photo}}" alt="{{more_listing_4_address}}" /><div class="listing-badge">{{more_listing_4_status}}</div></div>
+        <div class="listing-info"><div class="listing-address">{{more_listing_4_address}}</div><div class="listing-city">{{more_listing_4_city}}</div><div class="listing-meta"><span>{{more_listing_4_sqft}}</span><span class="listing-sep">|</span><span>{{more_listing_4_type}}</span></div></div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap"><img src="{{more_listing_5_photo}}" alt="{{more_listing_5_address}}" /><div class="listing-badge">{{more_listing_5_status}}</div></div>
+        <div class="listing-info"><div class="listing-address">{{more_listing_5_address}}</div><div class="listing-city">{{more_listing_5_city}}</div><div class="listing-meta"><span>{{more_listing_5_sqft}}</span><span class="listing-sep">|</span><span>{{more_listing_5_type}}</span></div></div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap"><img src="{{more_listing_6_photo}}" alt="{{more_listing_6_address}}" /><div class="listing-badge">{{more_listing_6_status}}</div></div>
+        <div class="listing-info"><div class="listing-address">{{more_listing_6_address}}</div><div class="listing-city">{{more_listing_6_city}}</div><div class="listing-meta"><span>{{more_listing_6_sqft}}</span><span class="listing-sep">|</span><span>{{more_listing_6_type}}</span></div></div>
+      </div>
+
+    </div>
+    <div class="listings-cta">
+      <p>{{more_listings_cta_text}}</p>
+      <a href="#eligibility" class="btn-dark">{{more_listings_cta_btn}} <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── YOUR TEAM ───────────────────────────────────────────── -->
+<div style="background:var(--bg-light)">
+  <div class="section">
+    <div class="text-center">
+      <div class="section-label">Your Team</div>
+      <h2 class="section-title">The People Behind Your Search</h2>
+      <p class="section-sub centered">Your loan officer handles the financing. Your agent handles the search. Both are on your side from day one.</p>
+    </div>
+    <div class="team-dual-wrap">
+
+      <div class="team-card">
+        <div class="team-photo-wrap"><img class="team-photo" src="{{lo_photo}}" alt="{{lo_name}}" /></div>
+        <div class="team-badge team-badge--lo">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Loan Officer
+        </div>
+        <div class="team-name">{{lo_name}}</div>
+        <div class="team-company">
+          <img class="team-company-logo" src="{{lo_company_logo}}" alt="{{lo_company}}" />
+          <span class="team-company-name">{{lo_company}}</span>
+        </div>
+        <div class="team-nmls">NMLS# {{lo_nmls}}</div>
+        <div class="team-contact-row">
+          <a href="tel:{{lo_phone_link}}" class="team-contact-link">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.1 12.15 19.79 19.79 0 011 3.59 2 2 0 012.96 1.42h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L7.09 9.19a16 16 0 005.72 5.72l1.13-1.13a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+            {{lo_phone_display}}
+          </a>
+          <a href="mailto:{{lo_email}}" class="team-contact-link">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            {{lo_email}}
+          </a>
+        </div>
+      </div>
+
+      <div class="team-connector">
+        <div class="team-connector-line"></div>
+        <div class="team-connector-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="team-connector-line"></div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo-wrap"><img class="team-photo" src="{{agent_photo}}" alt="{{agent_name}}" /></div>
+        <div class="team-badge team-badge--agent">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          Real Estate Agent
+        </div>
+        <div class="team-name">{{agent_name}}</div>
+        <div class="team-company">
+          <img class="team-company-logo" src="{{agent_company_logo}}" alt="{{agent_company}}" />
+          <span class="team-company-name">{{agent_company}}</span>
+        </div>
+        <div class="team-contact-row">
+          <a href="tel:{{agent_phone_link}}" class="team-contact-link">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.1 12.15 19.79 19.79 0 011 3.59 2 2 0 012.96 1.42h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L7.09 9.19a16 16 0 005.72 5.72l1.13-1.13a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+            {{agent_phone_display}}
+          </a>
+          <a href="mailto:{{agent_email}}" class="team-contact-link">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            {{agent_email}}
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── CTA BANNER ─────────────────────────────────────────── -->
+<div class="cta-banner">
+  <h2>Find Homes You Can Actually Afford</h2>
+  <p>Tell us your target monthly payment and we'll match you to available homes — with real financing options that work for your budget. No pressure, no obligation.</p>
+  <a href="#eligibility" class="btn-white">See My Matches <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></a>
+</div>
+
+<!-- ─── FOOTER ──────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand"><img src="../shared/brands/coldwell_banker/90110d05-c162-4afc-9bc6-20ff283b6860.svg" alt="Coldwell Banker" style="height:38px;width:auto;display:block;filter:brightness(0) invert(1);" /></div>
+        <p class="footer-desc">{{brand_footer_desc}}</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
+          <a href="tel:{{phone_link}}" style="color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;font-weight:600;">📞 {{phone_display}}</a>
+          <a href="mailto:{{contact_email}}" style="color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;font-weight:600;">✉ {{contact_email}}</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Search</h4>
+        <ul>
+          <li><a href="#eligibility">Search by Payment</a></li>
+          <li><a href="#eligibility">Browse by Area</a></li>
+          <li><a href="#eligibility">Financing Options</a></li>
+          <li><a href="#eligibility">New Construction</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>{{brand_name}}</h4>
+        <ul>
+          <li><a href="{{redirect_url}}" target="_blank">Browse All Listings</a></li>
+          <li><a href="tel:{{phone_link}}">Call Us</a></li>
+          <li><a href="mailto:{{contact_email}}">Send an Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">{{footer_legal}}</p>
+      <div class="footer-copy">{{footer_copyright}}</div>
+    </div>
+  </div>
+</footer>
+
+<script src="../shared/form-core.js"></script>
+<script>
+  var REDIRECT_URL = '{{redirect_url}}';
+
+  // Listings Carousel (infinite loop)
+  (function() {
+    var track    = document.getElementById('listingsTrack');
+    var dotsWrap = document.getElementById('carouselDots');
+    if (!track) return;
+    var cards   = track.querySelectorAll('.listing-card');
+    var total   = cards.length;
+    var current = 0;
+    function getVisible() { return window.innerWidth >= 960 ? 3 : window.innerWidth >= 600 ? 2 : 1; }
+    function maxIndex()   { return Math.max(0, total - getVisible()); }
+    function goTo(idx) {
+      if (idx < 0) idx = maxIndex();
+      if (idx > maxIndex()) idx = 0;
+      current = idx;
+      track.style.transform = 'translateX(-' + (current * (cards[0].offsetWidth + 24)) + 'px)';
+      updateDots();
+    }
+    function updateDots() {
+      dotsWrap.querySelectorAll('.carousel-dot').forEach(function(d, i) { d.classList.toggle('active', i === current); });
+    }
+    for (var i = 0; i < total; i++) {
+      var dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to listing ' + (i + 1));
+      (function(idx) { dot.addEventListener('click', function() { goTo(idx); }); })(i);
+      dotsWrap.appendChild(dot);
+    }
+    window.carouselPrev = function() { goTo(current - 1); };
+    window.carouselNext = function() { goTo(current + 1); };
+    window.addEventListener('resize', function() { goTo(Math.min(current, maxIndex())); });
+  })();
+
+  // Affordability search flow
+  function startSearch(range) {
+    var heroContent = document.getElementById('heroContent');
+    var eligibility = document.getElementById('eligibility');
+    if (heroContent) heroContent.classList.add('collapsed');
+    if (eligibility) eligibility.classList.add('engaged');
+    showStep('s2');
+    var fill = document.getElementById('progFill');
+    if (fill) fill.style.width = '16%';
+  }
+
+  // Thank you + redirect
+  function showThankYou() {
+    showStep('thankYou');
+    var fill = document.getElementById('tyBarFill');
+    var link = document.getElementById('tyRedirectLink');
+    if (link) link.href = REDIRECT_URL;
+    var pct = 0;
+    var interval = setInterval(function() {
+      pct += 2;
+      if (fill) fill.style.width = pct + '%';
+      if (pct >= 100) { clearInterval(interval); window.location.href = REDIRECT_URL; }
+    }, 100);
+  }
+</script>
+
+</body>
+</html>

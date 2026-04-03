@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Affordable Homes in Jacksonville, FL | Afordal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared/template.css" />
+  <style>
+    /* ─── 2-col hero override (newpad template only) ──── */
+    .hero {
+      min-height: auto;
+      padding: 80px 40px;
+      background-image:
+        linear-gradient(135deg, rgba(7,68,140,0.93) 0%, rgba(4,30,75,0.95) 100%),
+        url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/N%C3%A4chtliche_Skyline_von_Jacksonville%2C_Florida.JPG/1280px-N%C3%A4chtliche_Skyline_von_Jacksonville%2C_Florida.JPG');
+      background-size: cover;
+      background-position: center bottom;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 72px;
+      align-items: center;
+      text-align: left;
+    }
+    /* Keep content visible — no collapse needed in 2-col */
+    .hero-content,
+    .hero-content.collapsed {
+      max-height: none !important;
+      opacity: 1 !important;
+      margin-bottom: 0 !important;
+      transition: none !important;
+    }
+    .hero-badge  { justify-content: flex-start; }
+    .hero-perks  { justify-content: flex-start; }
+    .hero h1     { font-size: clamp(28px, 3.4vw, 48px); }
+
+    /* Submission counter sits below form card */
+    #eligibility { display: flex; flex-direction: column; }
+
+    @media (max-width: 960px) {
+      .hero { padding: 60px 32px; }
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+      .hero-badge, .hero-perks { justify-content: center; }
+      #eligibility {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #eligibility .leadforms-form-wrap {
+        width: 100%;
+        max-width: 480px;
+      }
+      #eligibility > div[style] {
+        justify-content: center;
+      }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 48px 20px; }
+    }
+
+    /* ─── Listings Carousel ─────────────────────────────── */
+    .listings-carousel-outer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .listings-track-outer { overflow: hidden; flex: 1; padding: 10px; }
+    .listings-track {
+      display: flex;
+      gap: 24px;
+      transition: transform .42s cubic-bezier(.4,0,.2,1);
+    }
+    .listing-card {
+      flex: 0 0 calc((100% - 48px) / 3);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .listing-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.11);
+    }
+    .listing-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: var(--bg-light);
+    }
+    .listing-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .4s;
+    }
+    .listing-card:hover .listing-img-wrap img { transform: scale(1.03); }
+    .listing-badge {
+      position: absolute; top: 14px; left: 14px;
+      background: #22c55e; color: #fff;
+      font-size: 12px; font-weight: 700;
+      padding: 5px 13px; border-radius: 20px;
+      letter-spacing: .3px;
+    }
+    .listing-info { padding: 18px 20px 20px; }
+    .listing-address {
+      font-family: 'Poppins', sans-serif;
+      font-size: 17px; font-weight: 700;
+      color: var(--heading); margin-bottom: 4px;
+    }
+    .listing-city {
+      font-size: 13px; color: var(--muted);
+      font-weight: 500; margin-bottom: 10px;
+    }
+    .listing-meta {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--body); font-weight: 500;
+    }
+    .listing-sep { color: var(--border); }
+
+    .carousel-arrow {
+      flex-shrink: 0; width: 44px; height: 44px;
+      border-radius: 50%; border: 1px solid var(--border);
+      background: var(--white); color: var(--heading);
+      font-size: 22px; line-height: 1; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .carousel-arrow:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .carousel-dots {
+      display: flex; justify-content: center;
+      gap: 8px; margin-top: 24px;
+    }
+    .carousel-dot {
+      width: 10px; height: 10px; border-radius: 5px;
+      background: var(--border); border: none;
+      cursor: pointer; padding: 0;
+      transition: all .25s;
+    }
+    .carousel-dot.active { background: var(--heading); width: 26px; }
+
+    .listings-cta {
+      text-align: center; margin-top: 40px;
+      padding-top: 32px; border-top: 1px solid var(--border);
+    }
+    .listings-cta p { color: var(--body); margin-bottom: 16px; font-size: 16px; }
+    .btn-dark {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: #fff;
+      padding: 14px 28px; border-radius: 10px;
+      font-size: 16px; font-weight: 700; text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .btn-dark:hover { background: #0052cc; transform: translateY(-2px); }
+
+    @media (max-width: 960px) {
+      .listing-card { flex: 0 0 calc((100% - 24px) / 2); }
+    }
+    @media (max-width: 600px) {
+      .listing-card { flex: 0 0 100%; }
+      .carousel-arrow { display: none; }
+    }
+
+    /* ─── More Listings Grid ────────────────────────────── */
+    .more-listings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .more-listings-grid .listing-card { flex: none; }
+    @media (max-width: 960px) { .more-listings-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .more-listings-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg height="38" viewBox="0 0 467 85" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:auto;">
+      <path d="M140.106 44.3027C142.167 40.2983 144.982 37.2057 148.524 35.0516C152.066 32.8974 156.031 31.8137 160.405 31.8137C164.225 31.8137 167.581 32.5802 170.449 34.1265C173.317 35.6727 175.617 37.6154 177.335 39.9546V32.6463H190.379V83.8974H177.335V76.404C175.67 78.8092 173.37 80.8049 170.449 82.3643C167.515 83.937 164.145 84.73 160.313 84.73C155.991 84.73 152.066 83.6198 148.524 81.3996C144.982 79.1793 142.167 76.0471 140.106 72.0031C138.044 67.959 137 63.3203 137 58.0736C137 52.8269 138.031 48.2939 140.106 44.2894V44.3027ZM175.498 50.1705C174.269 47.9238 172.604 46.1925 170.502 44.9899C168.401 43.7872 166.154 43.1793 163.749 43.1793C161.344 43.1793 159.123 43.7608 157.088 44.937C155.053 46.1132 153.401 47.8181 152.132 50.0648C150.863 52.3115 150.242 54.9811 150.242 58.0604C150.242 61.1397 150.877 63.8489 152.132 66.1485C153.401 68.4612 155.066 70.2322 157.128 71.4745C159.189 72.7035 161.396 73.3247 163.736 73.3247C166.075 73.3247 168.388 72.73 170.489 71.5273C172.59 70.3247 174.255 68.5934 175.485 66.3467C176.714 64.1 177.335 61.3908 177.335 58.2586C177.335 55.1264 176.714 52.4172 175.485 50.1705H175.498Z" fill="#07448C"/>
+      <path d="M226.564 43.285H217.59V83.8974H204.454V43.285H198.626V32.6463H204.454V30.056C204.454 23.7652 206.238 19.1397 209.819 16.1793C213.401 13.219 218.793 11.8313 226.009 12.0163V22.9326C222.864 22.8665 220.67 23.3952 219.441 24.5053C218.212 25.6154 217.59 27.6243 217.59 30.5185V32.6463H226.564V43.285Z" fill="#07448C"/>
+      <path d="M244.418 81.4392C240.467 79.2454 237.374 76.1529 235.114 72.1485C232.868 68.1441 231.744 63.5185 231.744 58.2718C231.744 53.0251 232.907 48.3996 235.207 44.3952C237.52 40.3908 240.678 37.285 244.683 35.0912C248.687 32.8974 253.167 31.8004 258.097 31.8004C263.026 31.8004 267.507 32.8974 271.511 35.0912C275.515 37.285 278.674 40.3776 280.987 44.3952C283.299 48.3996 284.449 53.0251 284.449 58.2718C284.449 63.5185 283.26 68.1441 280.881 72.1485C278.502 76.1529 275.304 79.2586 271.26 81.4392C267.216 83.633 262.709 84.7299 257.714 84.7299C252.718 84.7299 248.343 83.633 244.392 81.4392H244.418ZM264.348 71.7256C266.41 70.589 268.062 68.8709 269.304 66.5978C270.546 64.3247 271.154 61.5361 271.154 58.2718C271.154 53.3952 269.872 49.6551 267.308 47.0383C264.744 44.4216 261.625 43.1 257.925 43.1C254.225 43.1 251.119 44.4084 248.621 47.0383C246.123 49.6551 244.881 53.4084 244.881 58.2718C244.881 63.1353 246.097 66.8886 248.529 69.5053C250.96 72.122 254.04 73.4304 257.727 73.4304C260.066 73.4304 262.273 72.8621 264.335 71.7256H264.348Z" fill="#07448C"/>
+      <path d="M313.471 34.219C316.154 32.6727 319.22 31.9062 322.67 31.9062V45.5053H319.247C315.176 45.5053 312.11 46.4569 310.035 48.3732C307.974 50.2895 306.943 53.6199 306.943 58.3643V83.8974H293.991V32.6463H306.943V40.6022C308.608 37.893 310.789 35.7652 313.471 34.219Z" fill="#07448C"/>
+      <path d="M330.216 44.3026C332.278 40.2982 335.106 37.2057 338.674 35.0515C342.256 32.8973 346.234 31.8136 350.608 31.8136C353.938 31.8136 357.11 32.5405 360.137 33.9942C363.163 35.448 365.568 37.3643 367.352 39.7828V15.4524H380.489V83.9106H367.352V76.3246C365.753 78.8489 363.493 80.8841 360.599 82.4304C357.705 83.9766 354.335 84.7432 350.515 84.7432C346.194 84.7432 342.256 83.633 338.674 81.4128C335.093 79.1925 332.278 76.0603 330.216 72.0163C328.154 67.9722 327.11 63.3335 327.11 58.0868C327.11 52.8401 328.141 48.307 330.216 44.3026ZM365.608 50.1705C364.379 47.9238 362.714 46.1925 360.612 44.9899C358.511 43.7872 356.264 43.1793 353.859 43.1793C351.454 43.1793 349.234 43.7608 347.198 44.937C345.163 46.1132 343.511 47.818 342.242 50.0647C340.974 52.3114 340.352 54.981 340.352 58.0603C340.352 61.1396 340.987 63.8489 342.242 66.1484C343.511 68.4612 345.176 70.2321 347.238 71.4744C349.3 72.7035 351.507 73.3247 353.846 73.3247C356.185 73.3247 358.498 72.7299 360.599 71.5273C362.701 70.3247 364.366 68.5934 365.595 66.3467C366.824 64.1 367.445 61.3907 367.445 58.2586C367.445 55.1264 366.824 52.4172 365.595 50.1705H365.608Z" fill="#07448C"/>
+      <path d="M392.013 44.3027C394.075 40.2983 396.89 37.2057 400.432 35.0516C403.973 32.8974 407.938 31.8137 412.313 31.8137C416.132 31.8137 419.489 32.5802 422.357 34.1265C425.225 35.6727 427.524 37.6154 429.242 39.9546V32.6463H442.286V83.8974H429.242V76.404C427.577 78.8092 425.277 80.8049 422.357 82.3643C419.423 83.937 416.053 84.73 412.22 84.73C407.899 84.73 403.973 83.6198 400.432 81.3996C396.89 79.1793 394.075 76.0471 392.013 72.0031C389.951 67.959 388.907 63.3203 388.907 58.0736C388.907 52.8269 389.938 48.2939 392.013 44.2894V44.3027ZM427.405 50.1705C426.176 47.9238 424.511 46.1925 422.41 44.9899C420.308 43.7872 418.062 43.1793 415.656 43.1793C413.251 43.1793 411.031 43.7608 408.996 44.937C406.96 46.1132 405.308 47.8181 404.04 50.0648C402.771 52.3115 402.15 54.9811 402.15 58.0604C402.15 61.1397 402.784 63.8489 404.04 66.1485C405.308 68.4612 406.974 70.2322 409.035 71.4745C411.097 72.7035 413.304 73.3247 415.643 73.3247C417.982 73.3247 420.295 72.73 422.396 71.5273C424.498 70.3247 426.163 68.5934 427.392 66.3467C428.621 64.1 429.242 61.3908 429.242 58.2586C429.242 55.1264 428.621 52.4172 427.392 50.1705H427.405Z" fill="#07448C"/>
+      <path d="M467 15.4392V83.8974H454.048V15.4392H467Z" fill="#07448C"/>
+      <g clip-path="url(#clip0_1234_7748)">
+        <path d="M82.9687 55.6495V80.235C82.9687 82.3796 81.2121 84.1237 79.0521 84.1237H34.9682C32.8083 84.1237 31.0517 82.3796 31.0517 80.235V55.6495C31.0517 53.5049 32.8083 51.7608 34.9682 51.7608C37.1282 51.7608 38.8848 53.5049 38.8848 55.6495V76.3463H75.1226V55.6495C75.1226 53.5049 76.8791 51.7608 79.0391 51.7479C81.199 51.7479 82.9556 53.492 82.9687 55.6366V55.6495ZM86.651 49.0219L57.0102 27.9763L27.3564 49.0219C26.6928 49.4999 25.899 49.7583 25.0793 49.7583C22.9194 49.8229 21.0977 48.1434 21.0326 45.9858C20.9936 44.6681 21.6182 43.4278 22.6981 42.6785L54.7331 20.0051C56.0993 19.0361 57.934 19.0361 59.3002 20.0051L91.2441 42.6785C93.0137 43.9317 93.4171 46.3734 92.142 48.1304C90.8798 49.8875 88.4206 50.288 86.651 49.0219Z" fill="#0063E9"/>
+        <path d="M106.755 81.9553C106.116 83.2331 104.812 84.0721 103.377 84.1237H93.3997C91.2347 84.1237 89.474 82.3812 89.474 80.2258C89.474 78.0832 91.2347 76.3407 93.3997 76.3407H100.834C111.894 52.3851 101.238 24.0926 77.0318 13.1474C52.8255 2.20215 24.237 12.7473 13.1772 36.7029C10.321 42.8854 8.83416 49.5842 8.82112 56.3734C8.82112 63.24 10.2949 70.0162 13.1511 76.2762H20.6113C22.7763 76.2762 24.537 78.0186 24.537 80.1741C24.537 82.3167 22.7763 84.0592 20.6113 84.0592H10.6992C9.22543 84.0592 7.88208 83.2589 7.20389 81.9553C-7.0773 54.76 3.63033 21.2531 31.1233 7.13267C58.6162 -6.98773 92.4607 3.59612 106.729 30.8043C110.876 38.7035 113.041 47.4804 113.041 56.3863C113.041 65.2793 110.889 74.0561 106.781 81.9682L106.755 81.9553Z" fill="#07448C"/>
+      </g>
+      <defs>
+        <clipPath id="clip0_1234_7748">
+          <rect width="113.041" height="85" fill="white"/>
+        </clipPath>
+      </defs>
+    </svg>
+  </a>
+  <div class="nav-cta">
+    <a href="tel:9042550188" class="nav-phone">📞 (904) 255-0188</a>
+    <a href="#eligibility" class="btn btn-primary">See Available Homes</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="tel:9042550188" class="nav-phone">📞 (904) 255-0188</a>
+  <a href="#eligibility" class="btn btn-primary" id="mobileEligibilityBtn">See Available Homes</a>
+</div>
+
+<!-- ─── HERO ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content" id="heroContent">
+      <div class="hero-badge">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        Jacksonville, FL · Homes by Budget
+      </div>
+      <h1>Find Homes That Fit Your Monthly Budget in <em>Jacksonville, FL</em></h1>
+      <div class="hero-perks">
+        <div class="hero-perk">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+          Search by Monthly Payment
+        </div>
+        <div class="hero-perk">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+          Multiple Financing Options
+        </div>
+        <div class="hero-perk">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+          New Construction &amp; Resale
+        </div>
+        <div class="hero-perk">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+          No Cost to Search
+        </div>
+      </div>
+    </div>
+
+    <!-- LEAD FORM -->
+    <div id="eligibility">
+      <div class="leadforms-form-wrap">
+        <div class="leadforms-form-header">
+          <h3>Find Homes Within Your Budget</h3>
+          <p>Answer a few questions to get matched to available homes</p>
+        </div>
+        <div class="leadforms-form-body">
+          <!-- Progress bar -->
+          <div class="form-prog">
+            <div class="form-prog-bar"><div class="form-prog-fill" id="progFill"></div></div>
+          </div>
+
+          <!-- ── STEP 1: Monthly payment target ──────────── -->
+          <div class="form-step active" id="step1">
+            <p class="form-step-title">What's your target monthly payment?</p>
+            <div class="option-grid">
+              <div class="option-card" onclick="startSearch('under1500')">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span>Under $1,500/mo</span><small>Affordable range</small>
+              </div>
+              <div class="option-card" onclick="startSearch('1500to2000')">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span>$1,500–$2,000/mo</span><small>Mid range</small>
+              </div>
+              <div class="option-card" onclick="startSearch('2000to2500')">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span>$2,000–$2,500/mo</span><small>Upper mid</small>
+              </div>
+              <div class="option-card" onclick="startSearch('2500plus')">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span>$2,500+/mo</span><small>Premium range</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── STEP 2: Timeline ──────────────────────── -->
+          <div class="form-step" id="s2">
+            <p class="form-step-title">When are you looking to move?</p>
+            <div class="full-btn-list">
+              <button class="full-btn" onclick="goFlow('s',3)">As soon as possible</button>
+              <button class="full-btn" onclick="goFlow('s',3)">Within 3 months</button>
+              <button class="full-btn" onclick="goFlow('s',3)">3–6 months out</button>
+              <button class="full-btn" onclick="goFlow('s',3)">Just exploring options</button>
+            </div>
+            <button class="back-btn" onclick="goToStep(1)">← Back</button>
+          </div>
+
+          <!-- ── STEP 3: Financing ─────────────────────── -->
+          <div class="form-step" id="s3">
+            <p class="form-step-title">Have you been pre-approved?</p>
+            <div class="full-btn-list">
+              <button class="full-btn" onclick="goFlow('s',4)">Yes — already pre-approved</button>
+              <button class="full-btn" onclick="goFlow('s',4)">Working on it</button>
+              <button class="full-btn" onclick="goFlow('s',4)">No — I need help with financing</button>
+            </div>
+            <button class="back-btn" onclick="goFlow('s',2)">← Back</button>
+          </div>
+
+          <!-- ── STEP 4: Name ──────────────────────────── -->
+          <div class="form-step" id="s4">
+            <p class="form-step-title">What's your name?</p>
+            <div class="form-group">
+              <input type="text" placeholder="First name" id="sFirstName" />
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Last name" id="sLastName" />
+            </div>
+            <button class="btn-next-full" onclick="validateAndGo(()=>goFlow('s',5))">Next</button>
+            <button class="back-btn" onclick="goFlow('s',3)">← Back</button>
+          </div>
+
+          <!-- ── STEP 5: Email ─────────────────────────── -->
+          <div class="form-step" id="s5">
+            <p class="form-step-title">Where should we send your matches?</p>
+            <div class="form-group">
+              <input type="email" placeholder="Email address" id="sEmail" />
+            </div>
+            <button class="btn-next-full" onclick="validateAndGo(()=>goFlow('s',6))">Next</button>
+            <button class="back-btn" onclick="goFlow('s',4)">← Back</button>
+          </div>
+
+          <!-- ── STEP 6: Phone ─────────────────────────── -->
+          <div class="form-step" id="s6">
+            <p class="form-step-title">Best number to reach you?</p>
+            <div class="form-group phone-input-wrap">
+              <div class="phone-country-wrap"><select class="phone-country" id="sCountry"></select></div>
+              <input type="tel" placeholder="(000) 000-0000" id="sPhone" class="phone-input" />
+            </div>
+            <button class="btn-next-full" onclick="validateAndGo(()=>showThankYou())">Show Me My Matches!</button>
+            <button class="back-btn" onclick="goFlow('s',5)">← Back</button>
+            <p class="tcpa-disclaimer">By submitting, you agree to be contacted by Afordal and its partners by phone, email, or text regarding available homes and financing options. Message and data rates may apply. You may opt out at any time.</p>
+          </div>
+
+          <!-- ── THANK YOU ─────────────────────────────── -->
+          <div class="form-step" id="thankYou">
+            <div class="ty-redirect-bar-wrap">
+              <div class="ty-redirect-bar-fill" id="tyBarFill"></div>
+            </div>
+            <p class="ty-redirect-text">
+              Maria will be in touch shortly with your matches!<br>
+              Check your email for available homes.
+            </p>
+            <a id="tyRedirectLink" href="https://afordal.com/jacksonville-fl" class="ty-redirect-link">Click here to browse now</a>
+          </div>
+
+        </div><!-- /leadforms-form-body -->
+      </div>
+      <!-- Submission counter -->
+      <div style="text-align:center;margin-top:24px;display:flex;align-items:center;justify-content:center;gap:7px;">
+        <svg width="15" height="15" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.75);">
+          <span id="submissionCounter">847</span> Buyers Matched to Jacksonville Homes!
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AREAS SERVED ───────────────────────────────────── -->
+<div class="partner-bar">
+  <div class="partner-bar-inner">
+    <p class="partner-bar-label">Serving Jacksonville &amp; Surrounding Communities</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;color:var(--heading);">Riverside / Avondale</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">Historic &amp; Walkable</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;color:var(--heading);">Mandarin</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">South Jacksonville</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;color:var(--heading);">Ponte Vedra</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">Beach Communities</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;color:var(--heading);">Oakleaf / Fleming Island</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">Growing Suburbs</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── LISTINGS CAROUSEL ─────────────────────────────── -->
+<div style="background:var(--white)">
+  <div class="section">
+    <div class="text-center">
+      <h2 class="section-title">Homes Available Right Now in Jacksonville</h2>
+      <p class="section-sub centered">Browse active listings matched to buyers in your monthly payment range.</p>
+    </div>
+
+    <div class="listings-carousel-outer">
+      <button class="carousel-arrow" id="carouselPrevBtn" aria-label="Previous listings" onclick="carouselPrev()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="listings-track-outer">
+        <div class="listings-track" id="listingsTrack">
+
+          <div class="listing-card">
+            <div class="listing-img-wrap">
+              <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="4821 Ortega Blvd" />
+              <div class="listing-badge">New Listing</div>
+            </div>
+            <div class="listing-info">
+              <div class="listing-address">4821 Ortega Blvd</div>
+              <div class="listing-city">Jacksonville, FL 32210</div>
+              <div class="listing-meta">
+                <span>1,842 sqft</span>
+                <span class="listing-sep">|</span>
+                <span>3 bed / 2 bath</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap">
+              <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80" alt="2214 Loretta Rd" />
+              <div class="listing-badge">Move-In Ready</div>
+            </div>
+            <div class="listing-info">
+              <div class="listing-address">2214 Loretta Rd</div>
+              <div class="listing-city">Jacksonville, FL 32207</div>
+              <div class="listing-meta">
+                <span>1,560 sqft</span>
+                <span class="listing-sep">|</span>
+                <span>3 bed / 2 bath</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap">
+              <img src="https://images.unsplash.com/photo-1598228723793-52759bba239c?w=600&q=80" alt="8102 Lone Star Rd" />
+              <div class="listing-badge">Price Reduced</div>
+            </div>
+            <div class="listing-info">
+              <div class="listing-address">8102 Lone Star Rd</div>
+              <div class="listing-city">Jacksonville, FL 32211</div>
+              <div class="listing-meta">
+                <span>2,104 sqft</span>
+                <span class="listing-sep">|</span>
+                <span>4 bed / 2.5 bath</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap">
+              <img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=600&q=80" alt="3315 Blanding Blvd" />
+              <div class="listing-badge">New Construction</div>
+            </div>
+            <div class="listing-info">
+              <div class="listing-address">3315 Blanding Blvd</div>
+              <div class="listing-city">Middleburg, FL 32068</div>
+              <div class="listing-meta">
+                <span>1,728 sqft</span>
+                <span class="listing-sep">|</span>
+                <span>3 bed / 2 bath</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="1122 San Marco Blvd" />
+              <div class="listing-badge">Just Listed</div>
+            </div>
+            <div class="listing-info">
+              <div class="listing-address">1122 San Marco Blvd</div>
+              <div class="listing-city">Jacksonville, FL 32207</div>
+              <div class="listing-meta">
+                <span>1,980 sqft</span>
+                <span class="listing-sep">|</span>
+                <span>3 bed / 2 bath</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="listing-card">
+            <div class="listing-img-wrap">
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="9450 Argyle Forest Blvd" />
+              <div class="listing-badge">Available Now</div>
+            </div>
+            <div class="listing-info">
+              <div class="listing-address">9450 Argyle Forest Blvd</div>
+              <div class="listing-city">Jacksonville, FL 32222</div>
+              <div class="listing-meta">
+                <span>2,250 sqft</span>
+                <span class="listing-sep">|</span>
+                <span>4 bed / 3 bath</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /listings-track -->
+      </div>
+      <button class="carousel-arrow" id="carouselNextBtn" aria-label="Next listings" onclick="carouselNext()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div><!-- /listings-carousel-outer -->
+
+    <div class="carousel-dots" id="carouselDots"></div>
+
+    <div class="listings-cta">
+      <p>See every available home — filtered to your monthly budget.</p>
+      <a href="#eligibility" class="btn-dark">
+        Show Me All Matches
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TESTIMONIALS ───────────────────────────────────── -->
+<div class="testimonials-bg">
+  <div class="section">
+    <div class="text-center">
+      <div class="section-label">What Our Clients Say</div>
+      <h2 class="section-title">Real Stories from Jacksonville Home Buyers</h2>
+      <p class="section-sub centered">Here's what real buyers have to say about finding a home through Afordal.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">We had been searching for months and couldn't find anything in our budget. Afordal showed us homes by monthly payment and we closed in 45 days. We're still pinching ourselves!</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Desiree &amp; Marcus T." />
+          <div>
+            <div class="testimonial-name">Desiree &amp; Marcus T.</div>
+            <div class="testimonial-role">First-Time Buyers · Jacksonville, FL</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">I never knew I qualified for a down payment assistance program until Afordal connected me with their loan officer. My payment came out to $1,340/mo — way less than I was renting for.</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/men/28.jpg" alt="Devon R." />
+          <div>
+            <div class="testimonial-name">Devon R.</div>
+            <div class="testimonial-role">Homeowner · Mandarin, FL</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">The whole process was so much less stressful than I expected. Maria walked me through every step, and James got me a rate I didn't think was possible. Highly recommend!</p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/63.jpg" alt="Tamara W." />
+          <div>
+            <div class="testimonial-name">Tamara W.</div>
+            <div class="testimonial-role">New Homeowner · Oakleaf, FL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── STATS ──────────────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">$1,189/mo</div>
+      <div class="stat-label">Starting monthly payment</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">14+</div>
+      <div class="stat-label">Financing programs available</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">340+</div>
+      <div class="stat-label">Active listings in Jacksonville</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">28</div>
+      <div class="stat-label">Avg. days to close</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── MORE LISTINGS ──────────────────────────────────── -->
+<div style="background:var(--white)">
+  <div class="section">
+    <div class="text-center">
+      <div class="section-label">More Options</div>
+      <h2 class="section-title">More Homes in the Jacksonville Area</h2>
+      <p class="section-sub centered">All listings vetted for affordability — new construction, resale, and more.</p>
+    </div>
+    <div class="more-listings-grid">
+
+      <div class="listing-card">
+        <div class="listing-img-wrap">
+          <img src="https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=600&q=80" alt="712 Oakwood Dr" />
+          <div class="listing-badge">New Construction</div>
+        </div>
+        <div class="listing-info">
+          <div class="listing-address">712 Oakwood Dr</div>
+          <div class="listing-city">Fleming Island, FL 32003</div>
+          <div class="listing-meta"><span>1,650 sqft</span><span class="listing-sep">|</span><span>3 bed / 2 bath</span></div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap">
+          <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?w=600&q=80" alt="5503 Timuquana Rd" />
+          <div class="listing-badge">Available Now</div>
+        </div>
+        <div class="listing-info">
+          <div class="listing-address">5503 Timuquana Rd</div>
+          <div class="listing-city">Jacksonville, FL 32210</div>
+          <div class="listing-meta"><span>1,440 sqft</span><span class="listing-sep">|</span><span>3 bed / 1.5 bath</span></div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap">
+          <img src="https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12?w=600&q=80" alt="1804 Hendricks Ave" />
+          <div class="listing-badge">Move-In Ready</div>
+        </div>
+        <div class="listing-info">
+          <div class="listing-address">1804 Hendricks Ave</div>
+          <div class="listing-city">Jacksonville, FL 32207</div>
+          <div class="listing-meta"><span>2,020 sqft</span><span class="listing-sep">|</span><span>4 bed / 2 bath</span></div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap">
+          <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&q=80" alt="330 Ponte Vedra Blvd" />
+          <div class="listing-badge">Just Listed</div>
+        </div>
+        <div class="listing-info">
+          <div class="listing-address">330 Ponte Vedra Blvd</div>
+          <div class="listing-city">Ponte Vedra, FL 32082</div>
+          <div class="listing-meta"><span>2,380 sqft</span><span class="listing-sep">|</span><span>4 bed / 3 bath</span></div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap">
+          <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=80" alt="6217 Beach Blvd" />
+          <div class="listing-badge">Price Reduced</div>
+        </div>
+        <div class="listing-info">
+          <div class="listing-address">6217 Beach Blvd</div>
+          <div class="listing-city">Jacksonville, FL 32216</div>
+          <div class="listing-meta"><span>1,760 sqft</span><span class="listing-sep">|</span><span>3 bed / 2 bath</span></div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img-wrap">
+          <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80" alt="2890 Oakleaf Village Pkwy" />
+          <div class="listing-badge">New Construction</div>
+        </div>
+        <div class="listing-info">
+          <div class="listing-address">2890 Oakleaf Village Pkwy</div>
+          <div class="listing-city">Middleburg, FL 32068</div>
+          <div class="listing-meta"><span>1,920 sqft</span><span class="listing-sep">|</span><span>3 bed / 2 bath</span></div>
+        </div>
+      </div>
+
+    </div><!-- /more-listings-grid -->
+    <div class="listings-cta">
+      <p>Don't see what you're looking for? We have 340+ active listings in the area.</p>
+      <a href="#eligibility" class="btn-dark">
+        View All Jacksonville Listings
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── YOUR TEAM ──────────────────────────────────────── -->
+<div style="background:var(--bg-light)">
+  <div class="section">
+    <div class="text-center">
+      <div class="section-label">Your Team</div>
+      <h2 class="section-title">The People Behind Your Search</h2>
+      <p class="section-sub centered">Your loan officer handles the financing. Your agent handles the search. Both are on your side from day one.</p>
+    </div>
+    <div class="team-dual-wrap">
+
+      <!-- Loan Officer -->
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img class="team-photo" src="https://randomuser.me/api/portraits/men/52.jpg" alt="James Rivera" />
+        </div>
+        <div class="team-badge team-badge--lo">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Loan Officer
+        </div>
+        <div class="team-name">James Rivera</div>
+        <div class="team-company">
+          <img class="team-company-logo" src="https://placehold.co/80x28/e8f0fb/07448C?text=CCM" alt="CrossCountry Mortgage" />
+          <span class="team-company-name">CrossCountry Mortgage</span>
+        </div>
+        <div class="team-nmls">NMLS# 1082745</div>
+        <div class="team-contact-row">
+          <a href="tel:9042551847" class="team-contact-link">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.1 12.15 19.79 19.79 0 011 3.59 2 2 0 012.96 1.42h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L7.09 9.19a16 16 0 005.72 5.72l1.13-1.13a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+            (904) 255-1847
+          </a>
+          <a href="mailto:j.rivera@ccmortgage.com" class="team-contact-link">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            j.rivera@ccmortgage.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Connector -->
+      <div class="team-connector">
+        <div class="team-connector-line"></div>
+        <div class="team-connector-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="team-connector-line"></div>
+      </div>
+
+      <!-- Agent -->
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img class="team-photo" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Maria Santos" />
+        </div>
+        <div class="team-badge team-badge--agent">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+          Real Estate Agent
+        </div>
+        <div class="team-name">Maria Santos</div>
+        <div class="team-company">
+          <img class="team-company-logo" src="https://placehold.co/80x28/f0faf4/1a7a3c?text=KW" alt="Keller Williams Jacksonville" />
+          <span class="team-company-name">Keller Williams Jacksonville</span>
+        </div>
+        <div class="team-contact-row">
+          <a href="tel:9042559032" class="team-contact-link">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.1 12.15 19.79 19.79 0 011 3.59 2 2 0 012.96 1.42h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L7.09 9.19a16 16 0 005.72 5.72l1.13-1.13a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+            (904) 255-9032
+          </a>
+          <a href="mailto:maria.santos@kwjax.com" class="team-contact-link">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            maria.santos@kwjax.com
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /team-dual-wrap -->
+  </div>
+</div>
+
+<!-- ─── CTA BANNER ─────────────────────────────────────── -->
+<div class="cta-banner">
+  <h2>Find Homes You Can Actually Afford</h2>
+  <p>Tell us your target monthly payment and we'll match you to available homes — with real financing options that work for your budget. No pressure, no obligation.</p>
+  <a href="#eligibility" class="btn-white">
+    See My Matches
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+  </a>
+</div>
+
+<!-- ─── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand"><svg width="467" height="85" viewBox="0 0 467 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M140.106 44.3027C142.167 40.2983 144.982 37.2057 148.524 35.0516C152.066 32.8974 156.031 31.8137 160.405 31.8137C164.225 31.8137 167.581 32.5802 170.449 34.1265C173.317 35.6727 175.617 37.6154 177.335 39.9546V32.6463H190.379V83.8974H177.335V76.404C175.67 78.8092 173.37 80.8049 170.449 82.3643C167.515 83.937 164.145 84.73 160.313 84.73C155.991 84.73 152.066 83.6198 148.524 81.3996C144.982 79.1793 142.167 76.0471 140.106 72.0031C138.044 67.959 137 63.3203 137 58.0736C137 52.8269 138.031 48.2939 140.106 44.2894V44.3027ZM175.498 50.1705C174.269 47.9238 172.604 46.1925 170.502 44.9899C168.401 43.7872 166.154 43.1793 163.749 43.1793C161.344 43.1793 159.123 43.7608 157.088 44.937C155.053 46.1132 153.401 47.8181 152.132 50.0648C150.863 52.3115 150.242 54.9811 150.242 58.0604C150.242 61.1397 150.877 63.8489 152.132 66.1485C153.401 68.4612 155.066 70.2322 157.128 71.4745C159.189 72.7035 161.396 73.3247 163.736 73.3247C166.075 73.3247 168.388 72.73 170.489 71.5273C172.59 70.3247 174.255 68.5934 175.485 66.3467C176.714 64.1 177.335 61.3908 177.335 58.2586C177.335 55.1264 176.714 52.4172 175.485 50.1705H175.498Z" fill="white"/>
+<path d="M226.564 43.285H217.59V83.8974H204.454V43.285H198.626V32.6463H204.454V30.056C204.454 23.7652 206.238 19.1397 209.819 16.1793C213.401 13.219 218.793 11.8313 226.009 12.0163V22.9326C222.864 22.8665 220.67 23.3952 219.441 24.5053C218.212 25.6154 217.59 27.6243 217.59 30.5185V32.6463H226.564V43.285Z" fill="white"/>
+<path d="M244.418 81.4392C240.467 79.2454 237.374 76.1529 235.114 72.1485C232.868 68.1441 231.744 63.5185 231.744 58.2718C231.744 53.0251 232.907 48.3996 235.207 44.3952C237.52 40.3908 240.678 37.285 244.683 35.0912C248.687 32.8974 253.167 31.8004 258.097 31.8004C263.026 31.8004 267.507 32.8974 271.511 35.0912C275.515 37.285 278.674 40.3776 280.987 44.3952C283.299 48.3996 284.449 53.0251 284.449 58.2718C284.449 63.5185 283.26 68.1441 280.881 72.1485C278.502 76.1529 275.304 79.2586 271.26 81.4392C267.216 83.633 262.709 84.7299 257.714 84.7299C252.718 84.7299 248.343 83.633 244.392 81.4392H244.418ZM264.348 71.7256C266.41 70.589 268.062 68.8709 269.304 66.5978C270.546 64.3247 271.154 61.5361 271.154 58.2718C271.154 53.3952 269.872 49.6551 267.308 47.0383C264.744 44.4216 261.625 43.1 257.925 43.1C254.225 43.1 251.119 44.4084 248.621 47.0383C246.123 49.6551 244.881 53.4084 244.881 58.2718C244.881 63.1353 246.097 66.8886 248.529 69.5053C250.96 72.122 254.04 73.4304 257.727 73.4304C260.066 73.4304 262.273 72.8621 264.335 71.7256H264.348Z" fill="white"/>
+<path d="M313.471 34.219C316.154 32.6727 319.22 31.9062 322.67 31.9062V45.5053H319.247C315.176 45.5053 312.11 46.4569 310.035 48.3732C307.974 50.2895 306.943 53.6199 306.943 58.3643V83.8974H293.991V32.6463H306.943V40.6022C308.608 37.893 310.789 35.7652 313.471 34.219Z" fill="white"/>
+<path d="M330.216 44.3026C332.278 40.2982 335.106 37.2057 338.674 35.0515C342.256 32.8973 346.234 31.8136 350.608 31.8136C353.938 31.8136 357.11 32.5405 360.137 33.9942C363.163 35.448 365.568 37.3643 367.352 39.7828V15.4524H380.489V83.9106H367.352V76.3246C365.753 78.8489 363.493 80.8841 360.599 82.4304C357.705 83.9766 354.335 84.7432 350.515 84.7432C346.194 84.7432 342.256 83.633 338.674 81.4128C335.093 79.1925 332.278 76.0603 330.216 72.0163C328.154 67.9722 327.11 63.3335 327.11 58.0868C327.11 52.8401 328.141 48.307 330.216 44.3026ZM365.608 50.1705C364.379 47.9238 362.714 46.1925 360.612 44.9899C358.511 43.7872 356.264 43.1793 353.859 43.1793C351.454 43.1793 349.234 43.7608 347.198 44.937C345.163 46.1132 343.511 47.818 342.242 50.0647C340.974 52.3114 340.352 54.981 340.352 58.0603C340.352 61.1396 340.987 63.8489 342.242 66.1484C343.511 68.4612 345.176 70.2321 347.238 71.4744C349.3 72.7035 351.507 73.3247 353.846 73.3247C356.185 73.3247 358.498 72.7299 360.599 71.5273C362.701 70.3247 364.366 68.5934 365.595 66.3467C366.824 64.1 367.445 61.3907 367.445 58.2586C367.445 55.1264 366.824 52.4172 365.595 50.1705H365.608Z" fill="white"/>
+<path d="M392.013 44.3027C394.075 40.2983 396.89 37.2057 400.432 35.0516C403.973 32.8974 407.938 31.8137 412.313 31.8137C416.132 31.8137 419.489 32.5802 422.357 34.1265C425.225 35.6727 427.524 37.6154 429.242 39.9546V32.6463H442.286V83.8974H429.242V76.404C427.577 78.8092 425.277 80.8049 422.357 82.3643C419.423 83.937 416.053 84.73 412.22 84.73C407.899 84.73 403.973 83.6198 400.432 81.3996C396.89 79.1793 394.075 76.0471 392.013 72.0031C389.951 67.959 388.907 63.3203 388.907 58.0736C388.907 52.8269 389.938 48.2939 392.013 44.2894V44.3027ZM427.405 50.1705C426.176 47.9238 424.511 46.1925 422.41 44.9899C420.308 43.7872 418.062 43.1793 415.656 43.1793C413.251 43.1793 411.031 43.7608 408.996 44.937C406.96 46.1132 405.308 47.8181 404.04 50.0648C402.771 52.3115 402.15 54.9811 402.15 58.0604C402.15 61.1397 402.784 63.8489 404.04 66.1485C405.308 68.4612 406.974 70.2322 409.035 71.4745C411.097 72.7035 413.304 73.3247 415.643 73.3247C417.982 73.3247 420.295 72.73 422.396 71.5273C424.498 70.3247 426.163 68.5934 427.392 66.3467C428.621 64.1 429.242 61.3908 429.242 58.2586C429.242 55.1264 428.621 52.4172 427.392 50.1705H427.405Z" fill="white"/>
+<path d="M467 15.4392V83.8974H454.048V15.4392H467Z" fill="white"/>
+<g clip-path="url(#clip0_1235_8126)">
+<path d="M82.9687 55.6495V80.235C82.9687 82.3796 81.2121 84.1237 79.0521 84.1237H34.9682C32.8083 84.1237 31.0517 82.3796 31.0517 80.235V55.6495C31.0517 53.5049 32.8083 51.7607 34.9682 51.7607C37.1282 51.7607 38.8848 53.5049 38.8848 55.6495V76.3462H75.1226V55.6495C75.1226 53.5049 76.8791 51.7608 79.0391 51.7478C81.199 51.7478 82.9556 53.4919 82.9687 55.6366V55.6495ZM86.651 49.0219L57.0102 27.9763L27.3564 49.0219C26.6928 49.4999 25.899 49.7583 25.0793 49.7583C22.9194 49.8229 21.0977 48.1433 21.0326 45.9858C20.9936 44.668 21.6182 43.4278 22.6981 42.6785L54.7331 20.005C56.0993 19.0361 57.934 19.0361 59.3002 20.005L91.2441 42.6785C93.0137 43.9316 93.4171 46.3734 92.142 48.1304C90.8798 49.8874 88.4206 50.2879 86.651 49.0219Z" fill="#00D6FF"/>
+<path d="M106.755 81.9553C106.116 83.2331 104.812 84.0721 103.377 84.1237H93.3997C91.2347 84.1237 89.474 82.3812 89.474 80.2258C89.474 78.0832 91.2347 76.3407 93.3997 76.3407H100.834C111.894 52.3851 101.238 24.0926 77.0318 13.1474C52.8255 2.20215 24.237 12.7473 13.1772 36.7029C10.321 42.8854 8.83416 49.5842 8.82112 56.3734C8.82112 63.24 10.2949 70.0162 13.1511 76.2762H20.6113C22.7763 76.2762 24.537 78.0186 24.537 80.1741C24.537 82.3167 22.7763 84.0592 20.6113 84.0592H10.6992C9.22543 84.0592 7.88208 83.2589 7.20389 81.9553C-7.0773 54.76 3.63033 21.2531 31.1233 7.13267C58.6162 -6.98773 92.4607 3.59612 106.729 30.8043C110.876 38.7035 113.041 47.4804 113.041 56.3863C113.041 65.2793 110.889 74.0561 106.781 81.9682L106.755 81.9553Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_1235_8126">
+<rect width="113.041" height="85" fill="white"/>
+</clipPath>
+</defs>
+</svg></div>
+        <p class="footer-desc">Afordal connects buyers with new construction builders, so you can find and close on the right home without the runaround.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
+          <a href="tel:9042550188" style="color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;font-weight:600;">📞 (904) 255-0188</a>
+          <a href="mailto:homes@afordal.com" style="color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;font-weight:600;">✉ homes@afordal.com</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Search</h4>
+        <ul>
+          <li><a href="#eligibility">Search by Payment</a></li>
+          <li><a href="#eligibility">Browse by Area</a></li>
+          <li><a href="#eligibility">Financing Options</a></li>
+          <li><a href="#eligibility">New Construction</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Afordal</h4>
+        <ul>
+          <li><a href="https://afordal.com/jacksonville-fl" target="_blank">Browse All Listings</a></li>
+          <li><a href="tel:9042550188">Call Us</a></li>
+          <li><a href="mailto:homes@afordal.com">Send an Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">
+        &copy; 2026 Afordal, LLC. All rights reserved. This is not an offer to lend. All loans subject to credit approval. Equal Housing Opportunity. NMLS #2412345.
+      </p>
+      <div class="footer-copy">&copy; 2026 Afordal</div>
+    </div>
+  </div>
+</footer>
+
+<script src="../shared/form-core.js"></script>
+<script>
+  // ─── Campaign variables ───────────────────────────────
+  // Replace these values when deploying for a specific campaign
+  var REDIRECT_URL = 'https://afordal.com/jacksonville-fl';
+
+  // ─── Listings Carousel (infinite loop) ───────────────
+  (function() {
+    var track   = document.getElementById('listingsTrack');
+    var dotsWrap= document.getElementById('carouselDots');
+    if (!track) return;
+
+    var cards   = track.querySelectorAll('.listing-card');
+    var total   = cards.length;
+    var current = 0;
+
+    function getVisible() {
+      return window.innerWidth >= 960 ? 3 : window.innerWidth >= 600 ? 2 : 1;
+    }
+    function maxIndex() { return Math.max(0, total - getVisible()); }
+
+    function goTo(idx) {
+      // Wrap around in both directions
+      if (idx < 0) idx = maxIndex();
+      if (idx > maxIndex()) idx = 0;
+      current = idx;
+      var cardWidth = cards[0].offsetWidth;
+      track.style.transform = 'translateX(-' + (current * (cardWidth + 24)) + 'px)';
+      updateDots();
+    }
+
+    function updateDots() {
+      dotsWrap.querySelectorAll('.carousel-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    // Build dots
+    for (var i = 0; i < total; i++) {
+      var dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to listing ' + (i + 1));
+      (function(idx) { dot.addEventListener('click', function() { goTo(idx); }); })(i);
+      dotsWrap.appendChild(dot);
+    }
+
+    window.carouselPrev = function() { goTo(current - 1); };
+    window.carouselNext = function() { goTo(current + 1); };
+
+    window.addEventListener('resize', function() { goTo(Math.min(current, maxIndex())); });
+  })();
+
+  // ─── Start affordability search flow ─────────────────
+  function startSearch(range) {
+    var heroContent = document.getElementById('heroContent');
+    var eligibility = document.getElementById('eligibility');
+    if (heroContent) heroContent.classList.add('collapsed');
+    if (eligibility) eligibility.classList.add('engaged');
+    showStep('s2');
+    var fill = document.getElementById('progFill');
+    if (fill) fill.style.width = '16%';
+  }
+
+  // ─── Override showThankYou to redirect ───────────────
+  function showThankYou() {
+    showStep('thankYou');
+    var fill = document.getElementById('tyBarFill');
+    var link = document.getElementById('tyRedirectLink');
+    if (link) link.href = REDIRECT_URL;
+    var pct = 0;
+    var interval = setInterval(function() {
+      pct += 2;
+      if (fill) fill.style.width = pct + '%';
+      if (pct >= 100) {
+        clearInterval(interval);
+        window.location.href = REDIRECT_URL;
+      }
+    }, 100);
+  }
+</script>
+
+</body>
+</html>

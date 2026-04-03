@@ -1,0 +1,453 @@
+/*
+ * ═══════════════════════════════════════════════════════════
+ *  BRAND: Coldwell Banker
+ *  Source: coldwellbanker.com (live site) + Identity Standards 2024
+ *
+ *  CB Navy (Primary)  : #012169  (dark navy — header, headings)
+ *  CB Blue (Accent)   : #1F69FF  (CTAs, buttons, links)
+ *  CB Blue Dark       : #0040CB  (hover states)
+ *  CB Dark BG         : #0A1730  (dark sections, footer)
+ *  CB Mid Navy        : #455970  (labels, subheadings)
+ *  White              : #FFFFFF
+ *  Light Gray         : #F5F6F8  (section backgrounds)
+ *  Border             : #E0E3E8
+ *  Body text          : rgba(0,0,0,0.87)
+ *  Muted text         : #455970
+ *
+ *  Headlines : Bauziet (proprietary) → Playfair Display (web fallback)
+ *  Body      : Roboto (Google Fonts)
+ *
+ *  Assets folder: shared/brands/coldwell_banker/
+ *  Usage in HTML:
+ *    <img src="../shared/brands/coldwell_banker/logo.svg" />
+ *  Usage in CSS:
+ *    background-image: url('./coldwell_banker/logo.svg');
+ * ═══════════════════════════════════════════════════════════
+ */
+
+/* ── Fonts ──────────────────────────────────────────────── */
+
+/* Roboto — body copy */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* Bauziet — CB headline font (source: befonts.com/bauziet-font-family.html) */
+@font-face {
+  font-family: 'Bauziet';
+  src: url('https://befonts.com/wp-content/uploads/2025/10/Bauziet-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bauziet';
+  src: url('https://befonts.com/wp-content/uploads/2025/10/Bauziet-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bauziet';
+  src: url('https://befonts.com/wp-content/uploads/2025/10/Bauziet-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bauziet';
+  src: url('https://befonts.com/wp-content/uploads/2025/10/Bauziet-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bauziet';
+  src: url('https://befonts.com/wp-content/uploads/2025/10/Bauziet-Extrabold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bauziet';
+  src: url('https://befonts.com/wp-content/uploads/2025/10/Bauziet-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── Brand tokens ────────────────────────────────────────── */
+:root {
+  --brand-primary:       #1F69FF;
+  --brand-primary-dark:  #0040CB;
+  --brand-navy:          #012169;
+  --brand-navy-dark:     #00003E;
+  --brand-mid:           #455970;
+  --brand-heading:       #012169;
+  --brand-body:          rgba(0,0,0,0.87);
+  --brand-muted:         #455970;
+  --brand-border:        #E0E3E8;
+  --brand-bg-light:      #F5F6F8;
+  --brand-white:         #FFFFFF;
+  --brand-font:          'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --brand-heading-font:  'Bauziet', 'Playfair Display', Georgia, serif;
+  --brand-hero-bg:       linear-gradient(rgba(1,33,105,0.90), rgba(1,33,105,0.90));
+  --brand-stat-bg:       #012169;
+  --brand-stat-num:      #FFFFFF;
+  --brand-cta-bg:        #012169;
+  --brand-coband-bg:     #012169;
+  --brand-coband-text:   #FFFFFF;
+}
+
+/* ── Map brand tokens → template variables ───────────────── */
+:root {
+  --blue:     var(--brand-primary);
+  --heading:  var(--brand-heading);
+  --body:     var(--brand-body);
+  --muted:    var(--brand-muted);
+  --border:   var(--brand-border);
+  --bg-light: var(--brand-bg-light);
+}
+
+/* ── Global typography ───────────────────────────────────── */
+body,
+input, select, button, textarea {
+  font-family: var(--brand-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* CB uses serif display font for headlines — elegant, premium feel */
+h1, h2, h3,
+.section-title, .team-name {
+  font-family: var(--brand-heading-font);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--brand-heading);
+}
+
+h4, h5, h6,
+.listing-address {
+  font-family: var(--brand-font);
+  font-weight: 600;
+  color: var(--brand-heading);
+}
+
+.section-title {
+  font-size: clamp(26px, 3vw, 42px);
+  line-height: 1.15;
+}
+
+/* ── Nav ─────────────────────────────────────────────────── */
+nav {
+  background: var(--brand-navy) !important;
+  border-bottom: none !important;
+  box-shadow: 0 2px 16px rgba(1,33,105,0.3) !important;
+}
+
+a.nav-logo,
+a.nav-logo:visited,
+a.nav-logo:hover {
+  color: var(--brand-white) !important;
+}
+
+.nav-phone {
+  color: rgba(255,255,255,0.85) !important;
+}
+.nav-phone:hover {
+  color: #ffffff !important;
+}
+
+/* Hamburger lines — white on dark nav */
+.hamburger span {
+  background: #ffffff !important;
+}
+
+/* Mobile drawer — dark navy, matching nav */
+.mobile-menu {
+  background: var(--brand-navy) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+  box-shadow: 0 8px 24px rgba(1,33,105,0.4) !important;
+}
+.mobile-menu .nav-phone {
+  color: rgba(255,255,255,0.85) !important;
+  border-bottom-color: rgba(255,255,255,0.12) !important;
+}
+
+.btn.btn-primary {
+  background: var(--brand-primary) !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  font-size: 13px !important;
+}
+.btn.btn-primary:hover {
+  background: var(--brand-primary-dark) !important;
+}
+
+/* ── Hero ────────────────────────────────────────────────── */
+.hero em,
+.hero h1 em {
+  color: #6B9EFF !important;
+  font-style: italic;
+}
+
+.hero h1 {
+  font-family: var(--brand-heading-font) !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.hero-badge,
+.hero-badge * {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.12) !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+.hero-perk {
+  color: rgba(255,255,255,0.9) !important;
+}
+.hero-perk svg {
+  stroke: #6B9EFF !important;
+}
+
+/* ── Lead form card ──────────────────────────────────────── */
+.leadforms-form-wrap {
+  box-shadow: rgba(31,105,255,0.25) 0px 0px 0px 3px, rgba(0,0,0,0.3) 0px 32px 80px 0px !important;
+}
+
+.leadforms-form-header {
+  background: var(--brand-navy) !important;
+  border-radius: 12px 12px 0 0;
+}
+
+.leadforms-form-header h3 {
+  font-family: var(--brand-heading-font) !important;
+  font-weight: 700 !important;
+}
+
+.form-prog-fill {
+  background: var(--brand-primary) !important;
+}
+
+.option-card svg {
+  stroke: var(--brand-primary) !important;
+  color: var(--brand-primary) !important;
+}
+.option-card span {
+  color: var(--brand-heading) !important;
+}
+.option-card:hover,
+.option-card.selected {
+  border-color: var(--brand-primary) !important;
+  color: var(--brand-primary) !important;
+}
+.option-card:hover svg,
+.option-card.selected svg {
+  stroke: var(--brand-primary) !important;
+}
+
+/* ── Full-width form buttons ─────────────────────────────── */
+.full-btn {
+  background: var(--brand-navy) !important;
+  border-color: var(--brand-navy) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+}
+.full-btn:hover {
+  background: var(--brand-primary) !important;
+  border-color: var(--brand-primary) !important;
+}
+
+.btn-next-full {
+  background: var(--brand-primary) !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+.btn-next-full:hover {
+  background: var(--brand-primary-dark) !important;
+}
+
+/* ── Input focus ─────────────────────────────────────────── */
+.form-group input:focus,
+.form-group select:focus,
+.phone-input:focus {
+  border-color: var(--brand-primary) !important;
+  box-shadow: 0 0 0 3px rgba(31,105,255,0.15) !important;
+  outline: none !important;
+}
+
+/* ── Back button ─────────────────────────────────────────── */
+.back-btn {
+  color: var(--brand-muted) !important;
+}
+.back-btn:hover {
+  color: var(--brand-primary) !important;
+}
+
+/* ── Areas bar ───────────────────────────────────────────── */
+.partner-bar {
+  border-top: 3px solid var(--brand-navy);
+  border-bottom: 1px solid var(--brand-border);
+}
+
+/* ── Section labels ──────────────────────────────────────── */
+.section-label {
+  color: var(--brand-primary) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+}
+
+/* ── Carousel ────────────────────────────────────────────── */
+.carousel-dot.active {
+  background: var(--brand-navy) !important;
+}
+.carousel-arrow:hover {
+  background: var(--brand-navy) !important;
+  border-color: var(--brand-navy) !important;
+  color: #fff !important;
+}
+
+/* ── Listing CTA buttons ─────────────────────────────────── */
+.btn-dark {
+  background: var(--brand-primary) !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+.btn-dark:hover {
+  background: var(--brand-primary-dark) !important;
+}
+
+/* ── Testimonials ────────────────────────────────────────── */
+.testimonials-bg {
+  background: var(--brand-bg-light) !important;
+}
+.testimonial-quote {
+  color: var(--brand-navy) !important;
+}
+
+/* ── Stats bar ───────────────────────────────────────────── */
+.stats-bar {
+  background: var(--brand-stat-bg) !important;
+}
+.stat-num {
+  color: var(--brand-stat-num) !important;
+  font-family: var(--brand-heading-font) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+.stat-label {
+  color: rgba(255,255,255,0.6) !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* ── Team photo border ───────────────────────────────────── */
+.team-photo {
+  border-color: var(--brand-navy) !important;
+}
+.team-photo-wrap {
+  border-color: var(--brand-navy) !important;
+}
+
+/* ── Team contact links ──────────────────────────────────── */
+.team-contact-link,
+.team-contact-link:visited {
+  background: rgba(1,33,105,0.07) !important;
+  color: var(--brand-navy) !important;
+  border-color: rgba(1,33,105,0.2) !important;
+}
+.team-contact-link:hover {
+  background: var(--brand-navy) !important;
+  color: #ffffff !important;
+  border-color: var(--brand-navy) !important;
+}
+.team-contact-link:hover svg {
+  stroke: #ffffff !important;
+}
+.team-contact-link svg {
+  stroke: var(--brand-navy) !important;
+}
+
+/* ── Team badges ─────────────────────────────────────────── */
+.team-badge--lo {
+  background: rgba(1,33,105,0.08) !important;
+  color: var(--brand-navy) !important;
+  border: 1px solid rgba(1,33,105,0.2) !important;
+}
+.team-badge--agent {
+  background: rgba(1,33,105,0.08) !important;
+  color: var(--brand-navy) !important;
+  border: 1px solid rgba(1,33,105,0.2) !important;
+}
+
+/* ── Team connector ──────────────────────────────────────── */
+.team-connector-icon {
+  color: var(--brand-mid) !important;
+  border-color: var(--brand-border) !important;
+  background: var(--brand-bg-light) !important;
+}
+.team-connector-icon svg {
+  stroke: var(--brand-mid) !important;
+}
+.team-connector-line {
+  background: var(--brand-border) !important;
+}
+
+/* ── CTA banner ──────────────────────────────────────────── */
+.cta-banner {
+  background: var(--brand-cta-bg) !important;
+}
+.cta-banner h2 {
+  font-family: var(--brand-heading-font) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+}
+.btn-white {
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  color: var(--brand-navy) !important;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+footer {
+  background: var(--brand-navy-dark) !important;
+}
+.footer-col h4 {
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: rgba(255,255,255,0.45) !important;
+}
+
+/* ── Co-brand bar ────────────────────────────────────────── */
+.brand-coband {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--brand-coband-bg);
+  color: var(--brand-coband-text);
+  font-family: var(--brand-font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+}
+.brand-coband .brand-coband-divider { opacity: 0.4; }
+.brand-coband .brand-coband-name    { font-weight: 700; }
+.brand-coband .brand-coband-tagline { font-weight: 400; opacity: 0.8; letter-spacing: 0.04em; }
