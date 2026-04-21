@@ -1,0 +1,90 @@
+/* ─────────────────────────────────────────────────────────────
+   mortgage-pages.css
+   Layout overrides specific to all mortgage loan pages.
+   Loaded after template.css — anything here takes precedence.
+───────────────────────────────────────────────────────────── */
+
+/* ── Partner bar ─────────────────────────────────────────── */
+.partner-bar { display: none; }
+
+/* ── Nav phone ───────────────────────────────────────────── */
+.nav-phone { display: none; }
+.mobile-menu .nav-phone { display: none !important; }
+
+/* ── Footer partner logos ────────────────────────────────── */
+.footer-partner-logos { display: none; }
+
+/* ── Hero — 2-column layout ──────────────────────────────── */
+.hero {
+  min-height: auto;
+  padding: 72px 60px;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: start;
+  gap: 60px;
+  text-align: left;
+}
+
+.hero-content {
+  margin-bottom: 0;
+  max-height: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+}
+
+.hero h1 {
+  font-size: 48px;
+}
+
+.hero h1 {
+  text-align: left;
+}
+
+.hero-perks {
+  justify-content: flex-start;
+}
+
+/* ── Hero content: persist at reduced opacity when form is engaged ── */
+.hero-content.collapsed {
+  max-height: none !important;
+  opacity: 0.35 !important;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+/* ── Form: scroll-margin so scrollIntoView clears the sticky nav ─ */
+#eligibility {
+  scroll-margin-top: 72px;
+}
+
+/* ── Form: center when hero-content collapses (form clicked) ─ */
+.hero-content.collapsed ~ #eligibility {
+  margin: 0 auto;
+}
+
+/* ── Responsive: stack below 900px ───────────────────────── */
+@media (max-width: 900px) {
+  .hero {
+    padding: 52px 24px;
+  }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero h1 {
+    text-align: center;
+  }
+  .hero-perks {
+    justify-content: center;
+  }
+  #eligibility {
+    margin: 0 auto;
+    width: 100%;
+  }
+}

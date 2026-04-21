@@ -191,6 +191,15 @@
 
   /* ── Scroll hero into view ── */
   function scrollToTop() {
+    const form = document.getElementById('eligibility');
+    if (form && form.classList.contains('engaged')) {
+      /* Form is active — use scrollIntoView so the browser handles
+         the offset cleanly. scroll-margin-top in CSS accounts for the nav. */
+      requestAnimationFrame(function () {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      return;
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -260,7 +269,6 @@
     activeFlow = flow;
     document.getElementById('heroContent').classList.add('collapsed');
     document.getElementById('eligibility').classList.add('engaged');
-    scrollToTop();
     if (flow === 'purchase') goFlow('p', 2);
     else                     goFlow('r', 2);
   }
