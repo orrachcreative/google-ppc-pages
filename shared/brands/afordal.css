@@ -59,3 +59,7 @@ h1, h2, h3, h4, h5, h6,
 
 /* ── Co-brand bar (hidden for default Afordal brand) ─────── */
 .brand-coband { display: none; }
+
+/* ── Nav phone ───────────────────────────────────────────── */
+.nav-phone { display: none; }
+.mobile-menu .nav-phone { display: none !important; }
