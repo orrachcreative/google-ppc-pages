@@ -792,7 +792,8 @@
 <!-- ── Property-type token replacement (?type=condos | townhomes | duplexes …) ── -->
 <script>
   (function () {
-    var raw = (new URLSearchParams(window.location.search).get('type') || '').toLowerCase().trim();
+    var raw = new URLSearchParams(window.location.search).get('type');
+    if (!raw) return; /* no param → leave {{property_type}} visible as a template token */
     var map = {
       'homes':      'Homes',
       'condos':     'Condos',
@@ -804,7 +805,8 @@
       'land':       'Land',
       'properties': 'Properties'
     };
-    var label = map[raw] || 'Homes';
+    var label = map[raw.toLowerCase().trim()];
+    if (!label) return; /* unrecognised value → leave token as-is */
     /* Walk every text node and swap the token */
     var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     var node;
