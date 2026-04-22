@@ -162,7 +162,7 @@
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
         {{hero_badge}}
       </div>
-      <h1>Find Homes That Fit Your Monthly Budget in <em>{{city_state}}</em></h1>
+      <h1>Find {{property_type}} That Fit Your Monthly Budget in <em>{{city_state}}</em></h1>
       <div class="hero-perks">
         <div class="hero-perk">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
@@ -788,6 +788,33 @@
     </div>
   </div>
 </footer>
+
+<!-- ── Property-type token replacement (?type=condos | townhomes | duplexes …) ── -->
+<script>
+  (function () {
+    var raw = (new URLSearchParams(window.location.search).get('type') || '').toLowerCase().trim();
+    var map = {
+      'homes':      'Homes',
+      'condos':     'Condos',
+      'townhomes':  'Townhomes',
+      'townhouses': 'Townhouses',
+      'duplexes':   'Duplexes',
+      'villas':     'Villas',
+      'apartments': 'Apartments',
+      'land':       'Land',
+      'properties': 'Properties'
+    };
+    var label = map[raw] || 'Homes';
+    /* Walk every text node and swap the token */
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var node;
+    while ((node = walker.nextNode())) {
+      if (node.nodeValue.indexOf('{{property_type}}') !== -1) {
+        node.nodeValue = node.nodeValue.replace(/\{\{property_type\}\}/g, label);
+      }
+    }
+  })();
+</script>
 
 <script src="../shared/form-core.js"></script>
 <script>
