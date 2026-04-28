@@ -146,6 +146,17 @@
 
     @media (max-width: 960px) { .listing-card { flex: 0 0 calc((100% - 24px) / 2); } }
     @media (max-width: 600px) { .listing-card { flex: 0 0 100%; } .carousel-arrow { display: none; } }
+    @media (max-width: 480px) {
+      .listings-track {
+        display: grid;
+        grid-template-columns: 1fr;
+        transform: none !important;
+        transition: none;
+      }
+      .listings-track-outer { overflow: visible; }
+      .listing-card { flex: none; width: 100%; }
+      .carousel-arrow { display: none; }
+    }
 
     /* More Listings Grid */
     .more-listings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
