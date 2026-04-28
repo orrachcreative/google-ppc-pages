@@ -3,7 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{page_title}} | {{brand_name}}</title>
+  <title>Homes in  | Afordal</title>
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HT1327RWRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HT1327RWRM');
+  </script>
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "w1wo0hyfti");
+  </script>
 
   <!--
   ┌─────────────────────────────────────────────────────────────┐
@@ -160,7 +178,7 @@
     <div class="hero-content" id="heroContent">
       <div class="hero-badge">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
-        {{hero_badge}}
+         · Homes by Budget
       </div>
       <h1>Find {{property_type}} That Fit Your Monthly Budget in <em>{{city_state}}</em></h1>
       <div class="hero-perks">
@@ -187,8 +205,8 @@
     <div id="eligibility">
       <div class="leadforms-form-wrap">
         <div class="leadforms-form-header">
-          <h3>Check Your Eligibility</h3>
-          <p>Free quote in under 60 seconds — no SSN required</p>
+          <h3>Find Homes Within Your Budget</h3>
+          <p>Answer a few questions to get matched to available homes</p>
         </div>
         <div class="leadforms-form-body">
           <!-- Progress bar -->
@@ -394,7 +412,6 @@
           <div class="form-step" id="p14">
             <p class="form-step-title">What's the best cell number to reach you?</p>
             <div class="form-group phone-input-wrap">
-              <div class="phone-country-wrap"><select class="phone-country" id="pCountry"></select></div>
               <input type="tel" placeholder="(000) 000-0000" id="pPhone" class="phone-input" />
             </div>
             <button class="btn-next-full" onclick="validateAndGo(()=>showThankYou())">Done!</button>
@@ -483,7 +500,6 @@
           <div class="form-step" id="r9">
             <p class="form-step-title">What's the best cell number to reach you?</p>
             <div class="form-group phone-input-wrap">
-              <div class="phone-country-wrap"><select class="phone-country" id="rCountry"></select></div>
               <input type="tel" placeholder="(000) 000-0000" id="rPhone" class="phone-input" />
             </div>
             <button class="btn-next-full" onclick="validateAndGo(()=>showThankYou())">Done!</button>
@@ -498,11 +514,8 @@
             <div class="ty-redirect-bar-wrap">
               <div class="ty-redirect-bar-fill" id="tyBarFill"></div>
             </div>
-            <p class="ty-redirect-text">
-              We are now redirecting you to Home Search.<br>
-              Check your email for your Afordal App link.
-            </p>
-            <a id="tyRedirectLink" href="#" class="ty-redirect-link">Click here now</a>
+            <p class="ty-redirect-text">Redirecting...</p>
+            <a id="tyRedirectLink" href="#" class="ty-redirect-link">Click here if you're not redirected</a>
           </div>
 
         </div><!-- /leadforms-form-body -->
@@ -519,146 +532,123 @@
 </section>
 
 <!-- ─── AREAS SERVED ────────────────────────────────────────── -->
+<!--
 <div class="partner-bar">
   <div class="partner-bar-inner">
-    <p class="partner-bar-label">{{areas_label}}</p>
+    <p class="partner-bar-label"></p>
     <div style="display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;">
       <div style="text-align:center;">
-        <div style="font-size:18px;font-weight:700;color:var(--heading);">{{area_1_name}}</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">{{area_1_sub}}</div>
+        <div style="font-size:18px;font-weight:700;color:var(--heading);"></div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;"></div>
       </div>
       <div style="text-align:center;">
-        <div style="font-size:18px;font-weight:700;color:var(--heading);">{{area_2_name}}</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">{{area_2_sub}}</div>
+        <div style="font-size:18px;font-weight:700;color:var(--heading);"></div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;"></div>
       </div>
       <div style="text-align:center;">
-        <div style="font-size:18px;font-weight:700;color:var(--heading);">{{area_3_name}}</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">{{area_3_sub}}</div>
+        <div style="font-size:18px;font-weight:700;color:var(--heading);"></div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;"></div>
       </div>
       <div style="text-align:center;">
-        <div style="font-size:18px;font-weight:700;color:var(--heading);">{{area_4_name}}</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;">{{area_4_sub}}</div>
+        <div style="font-size:18px;font-weight:700;color:var(--heading);"></div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;"></div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- ─── LISTINGS CAROUSEL ──────────────────────────────────── -->
+-->
+	
+<!-- ─── LISTINGS ──────────────────────────────────── -->
 <div style="background:var(--white)">
   <div class="section">
     <div class="text-center">
-      <h2 class="section-title">{{listings_headline}}</h2>
-      <p class="section-sub centered">{{listings_subtitle}}</p>
+      <h2 class="section-title">{{property_type}} Available Right Now in {{city_state}}</h2>
+      <p class="section-sub centered">Browse active listings matched to buyers in your monthly payment range.</p>
     </div>
     <div class="listings-carousel-outer">
-      <button class="carousel-arrow" aria-label="Previous listings" onclick="carouselPrev()">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
       <div class="listings-track-outer">
         <div class="listings-track" id="listingsTrack">
 
           <div class="listing-card">
-            <div class="listing-img-wrap"><img src="{{listing_1_photo}}" alt="{{listing_1_address}}" /><div class="listing-badge">{{listing_1_status}}</div></div>
+            <div class="listing-img-wrap"><img src="" alt="" /></div>
             <div class="listing-info">
-              <div class="listing-address">{{listing_1_address}}</div>
-              <div class="listing-city">{{listing_1_city}}</div>
-              <div class="listing-meta"><span>{{listing_1_sqft}}</span><span class="listing-sep">|</span><span>{{listing_1_type}}</span></div>
+              <div class="listing-address"></div>
+              <div class="listing-city"></div>
+              <div class="listing-meta"></div>
             </div>
           </div>
 
           <div class="listing-card">
-            <div class="listing-img-wrap"><img src="{{listing_2_photo}}" alt="{{listing_2_address}}" /><div class="listing-badge">{{listing_2_status}}</div></div>
+            <div class="listing-img-wrap"><img src="" alt="" /></div>
             <div class="listing-info">
-              <div class="listing-address">{{listing_2_address}}</div>
-              <div class="listing-city">{{listing_2_city}}</div>
-              <div class="listing-meta"><span>{{listing_2_sqft}}</span><span class="listing-sep">|</span><span>{{listing_2_type}}</span></div>
+              <div class="listing-address"></div>
+              <div class="listing-city"></div>
+              <div class="listing-meta"></div>
             </div>
           </div>
 
           <div class="listing-card">
-            <div class="listing-img-wrap"><img src="{{listing_3_photo}}" alt="{{listing_3_address}}" /><div class="listing-badge">{{listing_3_status}}</div></div>
+            <div class="listing-img-wrap"><img src="" alt="" /></div>
             <div class="listing-info">
-              <div class="listing-address">{{listing_3_address}}</div>
-              <div class="listing-city">{{listing_3_city}}</div>
-              <div class="listing-meta"><span>{{listing_3_sqft}}</span><span class="listing-sep">|</span><span>{{listing_3_type}}</span></div>
-            </div>
-          </div>
-
-          <div class="listing-card">
-            <div class="listing-img-wrap"><img src="{{listing_4_photo}}" alt="{{listing_4_address}}" /><div class="listing-badge">{{listing_4_status}}</div></div>
-            <div class="listing-info">
-              <div class="listing-address">{{listing_4_address}}</div>
-              <div class="listing-city">{{listing_4_city}}</div>
-              <div class="listing-meta"><span>{{listing_4_sqft}}</span><span class="listing-sep">|</span><span>{{listing_4_type}}</span></div>
-            </div>
-          </div>
-
-          <div class="listing-card">
-            <div class="listing-img-wrap"><img src="{{listing_5_photo}}" alt="{{listing_5_address}}" /><div class="listing-badge">{{listing_5_status}}</div></div>
-            <div class="listing-info">
-              <div class="listing-address">{{listing_5_address}}</div>
-              <div class="listing-city">{{listing_5_city}}</div>
-              <div class="listing-meta"><span>{{listing_5_sqft}}</span><span class="listing-sep">|</span><span>{{listing_5_type}}</span></div>
-            </div>
-          </div>
-
-          <div class="listing-card">
-            <div class="listing-img-wrap"><img src="{{listing_6_photo}}" alt="{{listing_6_address}}" /><div class="listing-badge">{{listing_6_status}}</div></div>
-            <div class="listing-info">
-              <div class="listing-address">{{listing_6_address}}</div>
-              <div class="listing-city">{{listing_6_city}}</div>
-              <div class="listing-meta"><span>{{listing_6_sqft}}</span><span class="listing-sep">|</span><span>{{listing_6_type}}</span></div>
+              <div class="listing-address"></div>
+              <div class="listing-city"></div>
+              <div class="listing-meta"></div>
             </div>
           </div>
 
         </div>
       </div>
-      <button class="carousel-arrow" aria-label="Next listings" onclick="carouselNext()">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
     </div>
-    <div class="carousel-dots" id="carouselDots"></div>
     <div class="listings-cta">
-      <p>{{listings_cta_text}}</p>
-      <a href="#eligibility" class="btn-dark">{{listings_cta_btn}} <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></a>
+      <p>See every available home — filtered to your monthly budget.</p>
+      <a href="#eligibility" class="btn-dark">Show Me All Matches <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></a>
     </div>
   </div>
 </div>
 
-<!-- ─── TESTIMONIALS ───────────────────────────────────────── -->
+<!-- ─── TESTIMONIALS ───────────────────────────────────── -->
 <div class="testimonials-bg">
   <div class="section">
     <div class="text-center">
       <div class="section-label">What Our Clients Say</div>
-      <h2 class="section-title">Real Stories from {{city}} Home Buyers</h2>
-      <p class="section-sub centered">Here's what real buyers have to say about finding a home through {{brand_name}}.</p>
+      <h2 class="section-title">Real Stories from  Home Buyers</h2>
+      <p class="section-sub centered">Here's what real buyers have to say about finding a home through Afordal.</p>
     </div>
     <div class="testimonials-grid">
       <div class="testimonial-card">
         <div class="testimonial-quote">"</div>
         <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-text">{{testimonial_1_text}}</p>
+        <p class="testimonial-text">We had been searching for months and couldn't find anything in our budget. Afordal showed us homes by monthly payment and we closed in 45 days. We're still pinching ourselves!</p>
         <div class="testimonial-author">
-          <img class="testimonial-avatar" src="{{testimonial_1_photo}}" alt="{{testimonial_1_name}}" />
-          <div><div class="testimonial-name">{{testimonial_1_name}}</div><div class="testimonial-role">{{testimonial_1_role}}</div></div>
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Desiree &amp; Marcus T." />
+          <div>
+            <div class="testimonial-name">Desiree &amp; Marcus T.</div>
+            <div class="testimonial-role">First-Time Buyers · </div>
+          </div>
         </div>
       </div>
       <div class="testimonial-card">
         <div class="testimonial-quote">"</div>
         <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-text">{{testimonial_2_text}}</p>
+        <p class="testimonial-text">I never knew I qualified for a down payment assistance program until Afordal connected me with their loan officer. My payment came out to $1,340/mo — way less than I was renting for.</p>
         <div class="testimonial-author">
-          <img class="testimonial-avatar" src="{{testimonial_2_photo}}" alt="{{testimonial_2_name}}" />
-          <div><div class="testimonial-name">{{testimonial_2_name}}</div><div class="testimonial-role">{{testimonial_2_role}}</div></div>
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/men/28.jpg" alt="Devon R." />
+          <div>
+            <div class="testimonial-name">Devon R.</div>
+            <div class="testimonial-role">Homeowner · </div>
+          </div>
         </div>
       </div>
       <div class="testimonial-card">
         <div class="testimonial-quote">"</div>
         <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-text">{{testimonial_3_text}}</p>
+        <p class="testimonial-text">The whole process was so much less stressful than I expected.  walked me through every step, and their loan officer got me a rate I didn't think was possible. Highly recommend!</p>
         <div class="testimonial-author">
-          <img class="testimonial-avatar" src="{{testimonial_3_photo}}" alt="{{testimonial_3_name}}" />
-          <div><div class="testimonial-name">{{testimonial_3_name}}</div><div class="testimonial-role">{{testimonial_3_role}}</div></div>
+          <img class="testimonial-avatar" src="https://randomuser.me/api/portraits/women/63.jpg" alt="Tamara W." />
+          <div>
+            <div class="testimonial-name">Tamara W.</div>
+            <div class="testimonial-role">New Homeowner · </div>
+          </div>
         </div>
       </div>
     </div>
@@ -668,80 +658,27 @@
 <!-- ─── STATS ───────────────────────────────────────────────── -->
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item"><div class="stat-num">{{stat_1_num}}</div><div class="stat-label">Starting monthly payment</div></div>
-    <div class="stat-item"><div class="stat-num">{{stat_2_num}}</div><div class="stat-label">Financing programs available</div></div>
-    <div class="stat-item"><div class="stat-num">{{stat_3_num}}</div><div class="stat-label">Active listings in {{city}}</div></div>
-    <div class="stat-item"><div class="stat-num">{{stat_4_num}}</div><div class="stat-label">Avg. days to close</div></div>
+    <div class="stat-item"><div class="stat-num">—</div><div class="stat-label">Starting price</div></div>
+    <div class="stat-item"><div class="stat-num">—</div><div class="stat-label">Financing programs</div></div>
+    <div class="stat-item"><div class="stat-num">—</div><div class="stat-label">Active homes</div></div>
+    <div class="stat-item"><div class="stat-num">—</div><div class="stat-label">Avg days on market</div></div>
   </div>
 </div>
 
 
 <!-- ─── YOUR TEAM ───────────────────────────────────────────── -->
 <div style="background:var(--bg-light)">
-  <div class="section">
-    <div class="text-center">
-      <div class="section-label">Your Team</div>
-      <h2 class="section-title">The People Behind Your Search</h2>
-      <p class="section-sub centered">Your loan officer handles the financing. Your agent handles the search. Both are on your side from day one.</p>
-    </div>
-    <div class="team-dual-wrap">
-
-      <div class="team-card">
-        <div class="team-photo-wrap"><img class="team-photo" src="{{lo_photo}}" alt="{{lo_name}}" /></div>
-        <div class="team-badge team-badge--lo">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-          Loan Officer
-        </div>
-        <div class="team-name">{{lo_name}}</div>
-        <div class="team-company">
-          <img class="team-company-logo" src="{{lo_company_logo}}" alt="{{lo_company}}" />
-          <span class="team-company-name">{{lo_company}}</span>
-        </div>
-        <div class="team-nmls">NMLS# {{lo_nmls}}</div>
-        <div class="team-contact-row">
-          <a href="tel:{{lo_phone_link}}" class="team-contact-link">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.1 12.15 19.79 19.79 0 011 3.59 2 2 0 012.96 1.42h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L7.09 9.19a16 16 0 005.72 5.72l1.13-1.13a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
-            {{lo_phone_display}}
-          </a>
-          <a href="mailto:{{lo_email}}" class="team-contact-link">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            {{lo_email}}
-          </a>
-        </div>
-      </div>
-
-      <div class="team-connector">
-        <div class="team-connector-line"></div>
-        <div class="team-connector-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
-        <div class="team-connector-line"></div>
-      </div>
-
-      <div class="team-card">
-        <div class="team-photo-wrap"><img class="team-photo" src="{{agent_photo}}" alt="{{agent_name}}" /></div>
-        <div class="team-badge team-badge--agent">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
-          Real Estate Agent
-        </div>
-        <div class="team-name">{{agent_name}}</div>
-        <div class="team-company">
-          <img class="team-company-logo" src="{{agent_company_logo}}" alt="{{agent_company}}" />
-          <span class="team-company-name">{{agent_company}}</span>
-        </div>
-        <div class="team-contact-row">
-          <a href="tel:{{agent_phone_link}}" class="team-contact-link">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.1 12.15 19.79 19.79 0 011 3.59 2 2 0 012.96 1.42h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L7.09 9.19a16 16 0 005.72 5.72l1.13-1.13a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
-            {{agent_phone_display}}
-          </a>
-          <a href="mailto:{{agent_email}}" class="team-contact-link">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            {{agent_email}}
-          </a>
-        </div>
-      </div>
-
-    </div>
+  <div class="section">  
+	 
+<!-- if statement starts here -->
+	
+	
+	  
+	  
+	
+	  
+<!-- if statement ends here -->
+	  
   </div>
 </div>
 
@@ -752,16 +689,35 @@
   <a href="#eligibility" class="btn-white">See My Matches <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></a>
 </div>
 
-<!-- ─── FOOTER ──────────────────────────────────────────────── -->
+<!-- ─── FOOTER ─────────────────────────────────────────── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
       <div>
-        <div class="footer-brand"><img src="../shared/brands/afordal/Afordal_Logo-Horizontal-v1.svg" alt="Afordal" style="height:38px;width:auto;display:block;filter:brightness(0) invert(1);" /></div>
-        <p class="footer-desc">{{brand_footer_desc}}</p>
+        <div class="footer-brand"><svg width="467" height="85" viewBox="0 0 467 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M140.106 44.3027C142.167 40.2983 144.982 37.2057 148.524 35.0516C152.066 32.8974 156.031 31.8137 160.405 31.8137C164.225 31.8137 167.581 32.5802 170.449 34.1265C173.317 35.6727 175.617 37.6154 177.335 39.9546V32.6463H190.379V83.8974H177.335V76.404C175.67 78.8092 173.37 80.8049 170.449 82.3643C167.515 83.937 164.145 84.73 160.313 84.73C155.991 84.73 152.066 83.6198 148.524 81.3996C144.982 79.1793 142.167 76.0471 140.106 72.0031C138.044 67.959 137 63.3203 137 58.0736C137 52.8269 138.031 48.2939 140.106 44.2894V44.3027ZM175.498 50.1705C174.269 47.9238 172.604 46.1925 170.502 44.9899C168.401 43.7872 166.154 43.1793 163.749 43.1793C161.344 43.1793 159.123 43.7608 157.088 44.937C155.053 46.1132 153.401 47.8181 152.132 50.0648C150.863 52.3115 150.242 54.9811 150.242 58.0604C150.242 61.1397 150.877 63.8489 152.132 66.1485C153.401 68.4612 155.066 70.2322 157.128 71.4745C159.189 72.7035 161.396 73.3247 163.736 73.3247C166.075 73.3247 168.388 72.73 170.489 71.5273C172.59 70.3247 174.255 68.5934 175.485 66.3467C176.714 64.1 177.335 61.3908 177.335 58.2586C177.335 55.1264 176.714 52.4172 175.485 50.1705H175.498Z" fill="white"/>
+<path d="M226.564 43.285H217.59V83.8974H204.454V43.285H198.626V32.6463H204.454V30.056C204.454 23.7652 206.238 19.1397 209.819 16.1793C213.401 13.219 218.793 11.8313 226.009 12.0163V22.9326C222.864 22.8665 220.67 23.3952 219.441 24.5053C218.212 25.6154 217.59 27.6243 217.59 30.5185V32.6463H226.564V43.285Z" fill="white"/>
+<path d="M244.418 81.4392C240.467 79.2454 237.374 76.1529 235.114 72.1485C232.868 68.1441 231.744 63.5185 231.744 58.2718C231.744 53.0251 232.907 48.3996 235.207 44.3952C237.52 40.3908 240.678 37.285 244.683 35.0912C248.687 32.8974 253.167 31.8004 258.097 31.8004C263.026 31.8004 267.507 32.8974 271.511 35.0912C275.515 37.285 278.674 40.3776 280.987 44.3952C283.299 48.3996 284.449 53.0251 284.449 58.2718C284.449 63.5185 283.26 68.1441 280.881 72.1485C278.502 76.1529 275.304 79.2586 271.26 81.4392C267.216 83.633 262.709 84.7299 257.714 84.7299C252.718 84.7299 248.343 83.633 244.392 81.4392H244.418ZM264.348 71.7256C266.41 70.589 268.062 68.8709 269.304 66.5978C270.546 64.3247 271.154 61.5361 271.154 58.2718C271.154 53.3952 269.872 49.6551 267.308 47.0383C264.744 44.4216 261.625 43.1 257.925 43.1C254.225 43.1 251.119 44.4084 248.621 47.0383C246.123 49.6551 244.881 53.4084 244.881 58.2718C244.881 63.1353 246.097 66.8886 248.529 69.5053C250.96 72.122 254.04 73.4304 257.727 73.4304C260.066 73.4304 262.273 72.8621 264.335 71.7256H264.348Z" fill="white"/>
+<path d="M313.471 34.219C316.154 32.6727 319.22 31.9062 322.67 31.9062V45.5053H319.247C315.176 45.5053 312.11 46.4569 310.035 48.3732C307.974 50.2895 306.943 53.6199 306.943 58.3643V83.8974H293.991V32.6463H306.943V40.6022C308.608 37.893 310.789 35.7652 313.471 34.219Z" fill="white"/>
+<path d="M330.216 44.3026C332.278 40.2982 335.106 37.2057 338.674 35.0515C342.256 32.8973 346.234 31.8136 350.608 31.8136C353.938 31.8136 357.11 32.5405 360.137 33.9942C363.163 35.448 365.568 37.3643 367.352 39.7828V15.4524H380.489V83.9106H367.352V76.3246C365.753 78.8489 363.493 80.8841 360.599 82.4304C357.705 83.9766 354.335 84.7432 350.515 84.7432C346.194 84.7432 342.256 83.633 338.674 81.4128C335.093 79.1925 332.278 76.0603 330.216 72.0163C328.154 67.9722 327.11 63.3335 327.11 58.0868C327.11 52.8401 328.141 48.307 330.216 44.3026ZM365.608 50.1705C364.379 47.9238 362.714 46.1925 360.612 44.9899C358.511 43.7872 356.264 43.1793 353.859 43.1793C351.454 43.1793 349.234 43.7608 347.198 44.937C345.163 46.1132 343.511 47.818 342.242 50.0647C340.974 52.3114 340.352 54.981 340.352 58.0603C340.352 61.1396 340.987 63.8489 342.242 66.1484C343.511 68.4612 345.176 70.2321 347.238 71.4744C349.3 72.7035 351.507 73.3247 353.846 73.3247C356.185 73.3247 358.498 72.7299 360.599 71.5273C362.701 70.3247 364.366 68.5934 365.595 66.3467C366.824 64.1 367.445 61.3907 367.445 58.2586C367.445 55.1264 366.824 52.4172 365.595 50.1705H365.608Z" fill="white"/>
+<path d="M392.013 44.3027C394.075 40.2983 396.89 37.2057 400.432 35.0516C403.973 32.8974 407.938 31.8137 412.313 31.8137C416.132 31.8137 419.489 32.5802 422.357 34.1265C425.225 35.6727 427.524 37.6154 429.242 39.9546V32.6463H442.286V83.8974H429.242V76.404C427.577 78.8092 425.277 80.8049 422.357 82.3643C419.423 83.937 416.053 84.73 412.22 84.73C407.899 84.73 403.973 83.6198 400.432 81.3996C396.89 79.1793 394.075 76.0471 392.013 72.0031C389.951 67.959 388.907 63.3203 388.907 58.0736C388.907 52.8269 389.938 48.2939 392.013 44.2894V44.3027ZM427.405 50.1705C426.176 47.9238 424.511 46.1925 422.41 44.9899C420.308 43.7872 418.062 43.1793 415.656 43.1793C413.251 43.1793 411.031 43.7608 408.996 44.937C406.96 46.1132 405.308 47.8181 404.04 50.0648C402.771 52.3115 402.15 54.9811 402.15 58.0604C402.15 61.1397 402.784 63.8489 404.04 66.1485C405.308 68.4612 406.974 70.2322 409.035 71.4745C411.097 72.7035 413.304 73.3247 415.643 73.3247C417.982 73.3247 420.295 72.73 422.396 71.5273C424.498 70.3247 426.163 68.5934 427.392 66.3467C428.621 64.1 429.242 61.3908 429.242 58.2586C429.242 55.1264 428.621 52.4172 427.392 50.1705H427.405Z" fill="white"/>
+<path d="M467 15.4392V83.8974H454.048V15.4392H467Z" fill="white"/>
+<g clip-path="url(#clip0_1235_8126)">
+<path d="M82.9687 55.6495V80.235C82.9687 82.3796 81.2121 84.1237 79.0521 84.1237H34.9682C32.8083 84.1237 31.0517 82.3796 31.0517 80.235V55.6495C31.0517 53.5049 32.8083 51.7607 34.9682 51.7607C37.1282 51.7607 38.8848 53.5049 38.8848 55.6495V76.3462H75.1226V55.6495C75.1226 53.5049 76.8791 51.7608 79.0391 51.7478C81.199 51.7478 82.9556 53.4919 82.9687 55.6366V55.6495ZM86.651 49.0219L57.0102 27.9763L27.3564 49.0219C26.6928 49.4999 25.899 49.7583 25.0793 49.7583C22.9194 49.8229 21.0977 48.1433 21.0326 45.9858C20.9936 44.668 21.6182 43.4278 22.6981 42.6785L54.7331 20.005C56.0993 19.0361 57.934 19.0361 59.3002 20.005L91.2441 42.6785C93.0137 43.9316 93.4171 46.3734 92.142 48.1304C90.8798 49.8874 88.4206 50.2879 86.651 49.0219Z" fill="#00D6FF"/>
+<path d="M106.755 81.9553C106.116 83.2331 104.812 84.0721 103.377 84.1237H93.3997C91.2347 84.1237 89.474 82.3812 89.474 80.2258C89.474 78.0832 91.2347 76.3407 93.3997 76.3407H100.834C111.894 52.3851 101.238 24.0926 77.0318 13.1474C52.8255 2.20215 24.237 12.7473 13.1772 36.7029C10.321 42.8854 8.83416 49.5842 8.82112 56.3734C8.82112 63.24 10.2949 70.0162 13.1511 76.2762H20.6113C22.7763 76.2762 24.537 78.0186 24.537 80.1741C24.537 82.3167 22.7763 84.0592 20.6113 84.0592H10.6992C9.22543 84.0592 7.88208 83.2589 7.20389 81.9553C-7.0773 54.76 3.63033 21.2531 31.1233 7.13267C58.6162 -6.98773 92.4607 3.59612 106.729 30.8043C110.876 38.7035 113.041 47.4804 113.041 56.3863C113.041 65.2793 110.889 74.0561 106.781 81.9682L106.755 81.9553Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_1235_8126">
+<rect width="113.041" height="85" fill="white"/>
+</clipPath>
+</defs>
+</svg></div>
+        <p class="footer-desc">Afordal connects buyers with new construction builders, so you can find and close on the right home without the runaround.</p>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
-          <a href="tel:{{phone_link}}" style="color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;font-weight:600;">📞 {{phone_display}}</a>
-          <a href="mailto:{{contact_email}}" style="color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;font-weight:600;">✉ {{contact_email}}</a>
+		<!--
+          <a href="tel:9042550188" style="color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;font-weight:600;">📞 (904) 255-0188</a>
+          <a href="mailto:homes@afordal.com" style="color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;font-weight:600;">✉ homes@afordal.com</a>
+		-->
         </div>
       </div>
       <div class="footer-col">
@@ -774,21 +730,24 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>{{brand_name}}</h4>
+        <h4>Afordal</h4>
         <ul>
-          <li><a href="{{redirect_url}}" target="_blank">Browse All Listings</a></li>
-          <li><a href="tel:{{phone_link}}">Call Us</a></li>
-          <li><a href="mailto:{{contact_email}}">Send an Email</a></li>
+          <li><a href="https://afordal.com/jacksonville-fl" target="_blank">Browse All Listings</a></li>
+          <li><a href="tel:9042550188">Call Us</a></li>
+          <li><a href="mailto:homes@afordal.com">Send an Email</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-legal">{{footer_legal}}</p>
-      <div class="footer-copy">{{footer_copyright}}</div>
+      <p class="footer-legal">
+        &copy; 2026 Afordal, LLC. All rights reserved. This is not an offer to lend. All loans subject to credit approval. Equal Housing Opportunity. NMLS #2412345.
+      </p>
+      <div class="footer-copy">&copy; 2026 Afordal</div>
     </div>
   </div>
 </footer>
 
+<script>window.__AFORDAL_PPC_STATE = {"HomeASAP_agentID":null,"LOGuid":null,"RatePlugApiKey":"orgv1wQm375!b2AQSlF_sBVF4tDT"};</script>
 <!-- ── URL token replacement (?type= | ?city= + ?state=) ── -->
 <script>
   (function () {
@@ -831,8 +790,6 @@
 
 <script src="../shared/form-core.js"></script>
 <script>
-  var REDIRECT_URL = '{{redirect_url}}';
-
   // Listings Carousel (infinite loop)
   (function() {
     var track    = document.getElementById('listingsTrack');
@@ -851,44 +808,22 @@
       updateDots();
     }
     function updateDots() {
+      if (!dotsWrap) return;
       dotsWrap.querySelectorAll('.carousel-dot').forEach(function(d, i) { d.classList.toggle('active', i === current); });
     }
-    for (var i = 0; i < total; i++) {
-      var dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to listing ' + (i + 1));
-      (function(idx) { dot.addEventListener('click', function() { goTo(idx); }); })(i);
-      dotsWrap.appendChild(dot);
+    if (dotsWrap) {
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to listing ' + (i + 1));
+        (function(idx) { dot.addEventListener('click', function() { goTo(idx); }); })(i);
+        dotsWrap.appendChild(dot);
+      }
     }
     window.carouselPrev = function() { goTo(current - 1); };
     window.carouselNext = function() { goTo(current + 1); };
     window.addEventListener('resize', function() { goTo(Math.min(current, maxIndex())); });
   })();
-
-  // Affordability search flow
-  function startSearch(range) {
-    var heroContent = document.getElementById('heroContent');
-    var eligibility = document.getElementById('eligibility');
-    if (heroContent) heroContent.classList.add('collapsed');
-    if (eligibility) eligibility.classList.add('engaged');
-    showStep('s2');
-    var fill = document.getElementById('progFill');
-    if (fill) fill.style.width = '16%';
-  }
-
-  // Thank you + redirect
-  function showThankYou() {
-    showStep('thankYou');
-    var fill = document.getElementById('tyBarFill');
-    var link = document.getElementById('tyRedirectLink');
-    if (link) link.href = REDIRECT_URL;
-    var pct = 0;
-    var interval = setInterval(function() {
-      pct += 2;
-      if (fill) fill.style.width = pct + '%';
-      if (pct >= 100) { clearInterval(interval); window.location.href = REDIRECT_URL; }
-    }, 100);
-  }
 </script>
 
 </body>
