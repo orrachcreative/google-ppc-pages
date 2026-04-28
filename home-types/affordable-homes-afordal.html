@@ -789,31 +789,42 @@
   </div>
 </footer>
 
-<!-- ── Property-type token replacement (?type=condos | townhomes | duplexes …) ── -->
+<!-- ── URL token replacement (?type= | ?city= + ?state=) ── -->
 <script>
   (function () {
-    var raw = new URLSearchParams(window.location.search).get('type');
-    if (!raw) return; /* no param → leave {{property_type}} visible as a template token */
-    var map = {
-      'homes':      'Homes',
-      'condos':     'Condos',
-      'townhomes':  'Townhomes',
-      'townhouses': 'Townhouses',
-      'duplexes':   'Duplexes',
-      'villas':     'Villas',
-      'apartments': 'Apartments',
-      'land':       'Land',
-      'properties': 'Properties'
+    var params = new URLSearchParams(window.location.search);
+
+    /* ── property_type: singular & plural forms both accepted ── */
+    var typeRaw = params.get('type');
+    var typeMap = {
+      'home': 'Homes',        'homes': 'Homes',
+      'condo': 'Condos',      'condos': 'Condos',
+      'townhome': 'Townhomes','townhomes': 'Townhomes',
+      'townhouse': 'Townhouses','townhouses': 'Townhouses',
+      'duplex': 'Duplexes',   'duplexes': 'Duplexes',
+      'villa': 'Villas',      'villas': 'Villas',
+      'apartment': 'Apartments','apartments': 'Apartments',
+      'land': 'Land',
+      'property': 'Properties','properties': 'Properties'
     };
-    var label = map[raw.toLowerCase().trim()];
-    if (!label) return; /* unrecognised value → leave token as-is */
-    /* Walk every text node and swap the token */
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    var node;
-    while ((node = walker.nextNode())) {
-      if (node.nodeValue.indexOf('{{property_type}}') !== -1) {
-        node.nodeValue = node.nodeValue.replace(/\{\{property_type\}\}/g, label);
+    var typeLabel = typeRaw ? (typeMap[typeRaw.toLowerCase().trim()] || null) : null;
+
+    /* ── city_state: combine ?city= and ?state= ── */
+    var city  = (params.get('city')  || '').trim();
+    var state = (params.get('state') || '').trim();
+    var cityLabel = city && state ? city + ', ' + state : (city || state || null);
+
+    /* ── Walk all text nodes and swap tokens ── */
+    function replaceInNode(node, token, value) {
+      if (value && node.nodeValue.indexOf(token) !== -1) {
+        node.nodeValue = node.nodeValue.replace(new RegExp(token.replace(/[{}]/g, '\\$&'), 'g'), value);
       }
+    }
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var n;
+    while ((n = walker.nextNode())) {
+      replaceInNode(n, '{{property_type}}', typeLabel);
+      replaceInNode(n, '{{city_state}}',    cityLabel);
     }
   })();
 </script>
